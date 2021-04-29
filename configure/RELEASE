@@ -25,7 +25,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/epics/src/base
+SUPPORT=/epics/src/support
 SNCSEQ=/epics/src/support/seq
 ASYN=/epics/src/support/asyn
 CALC=/epics/src/support/calc
@@ -35,6 +35,7 @@ AUTOSAVE=/epics/src/support/autosave
 ETHER_IP=/epics/src/support/ether_ip
 CAPUTLOG=/epics/src/support/caPutLog
 SSCAN=/epics/src/support/sscan
+EPICS_BASE=/epics/src/base
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
