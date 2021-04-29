@@ -1,0 +1,919 @@
+## Template for Allen Bradley PLC digital input
+
+## Substitutions:
+## Sys		-	System
+## PLC		-	PLC name
+
+# GV1 error signal
+record(bi, "$(Sys){GV:1}Err-Sts")
+{
+        field(DESC, "GV1 Err")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[0] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV2 error signal
+record(bi, "$(Sys){GV:2}Err-Sts")
+{
+        field(DESC, "GV2 Err")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[1] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 failed to open signal
+record(bi, "$(Sys){GV:1}Sts:FailOpn-Sts")
+{
+        field(DESC, "GV1 Fail Open")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[2] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 failed to closedopen signal
+record(bi, "$(Sys){GV:1}Sts:FailCls-Sts")
+{
+        field(DESC, "GV1 Fail Close")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[3] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV2 failed to open signal
+record(bi, "$(Sys){GV:2}Sts:FailOpn-Sts")
+{
+        field(DESC, "GV2 Fail Open")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[4] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV2 failed to closedopen signal
+record(bi, "$(Sys){GV:2}Sts:FailCls-Sts")
+{
+        field(DESC, "GV2 Fail Close")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[5] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 status signal
+record(bi, "$(Sys){GV:1}Pos-Sts")
+{
+        field(DESC, "GV1 Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[6] S 0.5")
+        field(ZNAM, "Closed")
+        field(ONAM, "Open")
+        field(ZSV,  "MINOR")
+}
+
+# GV2 status signal        
+record(bi, "$(Sys){GV:2}Pos-Sts")
+{
+        field(DESC, "GV2 Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[7] S 0.5")
+        field(ZNAM, "Closed")
+        field(ONAM, "Open")
+        field(ZSV,  "MINOR")
+}
+
+# GV1 open limit switch status signal
+record(bi, "$(Sys){GV:1}Sw:OpnLim-Sts")
+{
+        field(DESC, "GV1 Open Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[8] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV1 close limit switch status signal
+record(bi, "$(Sys){GV:1}Sw:ClsLim-Sts")
+{
+        field(DESC, "GV1 Close Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[9] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV2 open limit switch status signal
+record(bi, "$(Sys){GV:2}Sw:OpnLim-Sts")
+{
+        field(DESC, "GV2 Open Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[10] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV2 close limit switch status signal
+record(bi, "$(Sys){GV:2}Sw:ClsLim-Sts")
+{
+        field(DESC, "GV2 Close Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[11] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV1 24V to coil signal
+record(bi, "$(Sys){GV:1}Sts:Coil-Sts")
+{
+        field(DESC, "GV1 Coil")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[12] S 0.5")
+        field(ZNAM, "Coil Low")
+        field(ONAM, "Coil High")
+}
+
+# GV2 24V to coil signal 
+record(bi, "$(Sys){GV:2}Sts:Coil-Sts")
+{
+        field(DESC, "GV2 Coil")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[13] S 0.5")
+        field(ZNAM, "Coil Low")
+        field(ONAM, "Coil High")
+}
+
+# G1TCG signal
+record(bi, "$(Sys):G1{TCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G1TCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[14] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G5TCG signal
+record(bi, "$(Sys):G5{TCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G5TCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[15] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G1CCG1 signal
+record(bi, "$(Sys):G1{CCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G1CCG1 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[16] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G1CCG2 signal
+record(bi, "$(Sys):G1{CCG:2}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G1CCG2 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[17] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G3CCG signal
+record(bi, "$(Sys):G3{CCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G3CCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[18] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G5CCG signal
+record(bi, "$(Sys):G5{CCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G5CCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[19] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G1IP1 signal
+record(bi, "$(Sys):G1{IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G1IP1 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[20] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G1IP2 signal
+record(bi, "$(Sys):G1{IP:2}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G1IP2 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[21] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G2IP signal
+record(bi, "$(Sys):G2{IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G2IP Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[22] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G6IP signal
+record(bi, "$(Sys):G6{IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "G6IP Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[23] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# US TCG signal
+record(bi, "$(Sys){}Sts:FromUS_TCG-Sts")
+{
+        field(DESC, "US TCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[24] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# US S2-S5 signal
+record(bi, "$(Sys){}Sts:FromUS_S2S5-Sts")
+{
+        field(DESC, "US S2-S5 Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[25] S 0.5")
+	field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+	field(ZSV,  "MAJOR")
+}
+
+# US S3-S6 signal
+record(bi, "$(Sys){}Sts:FromUS_S3S6-Sts")
+{
+        field(DESC, "US S3-S6 Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[26] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# DS S1 signal
+record(bi, "$(Sys){}Sts:FromDS_S1-Sts")
+{
+        field(DESC, "DS S1 Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[27] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA interlock signal
+record(bi, "$(Sys){}Sts:FromFE_A-Sts")
+{
+        field(DESC, "FEA Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[28] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR") 
+}
+
+# FEB interlock signal
+record(bi, "$(Sys){}Sts:FromFE_B-Sts")
+{
+        field(DESC, "FEB Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[29] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV1 US interlock signal
+record(bi, "$(Sys){GV:1}Sts:US_Intlk-Sts")
+{
+        field(DESC, "GV1 US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[30] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV2 DS interlock signal
+record(bi, "$(Sys){GV:2}Sts:US_Intlk-Sts")
+{
+        field(DESC, "GV2 US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[31] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Interlock signal to upstream
+record(bi, "$(Sys){}Sts:S1ToUS-Sts")
+{
+        field(DESC, "S1 to US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[0] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# G5 TCG signal to downstream
+record(bi, "$(Sys){}Sts:TCG_ToDS-Sts")
+{
+        field(DESC, "TCG to DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[1] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# S2-S5 interlock signal to downstream 
+record(bi, "$(Sys){}Sts:S2S5ToDS-Sts")
+{
+        field(DESC, "S2-S5 to DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[2] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# S3-S6 interlock signal to downstream
+record(bi, "$(Sys){}Sts:S3S6ToDS-Sts")
+{
+        field(DESC, "S3-S6 to DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[3] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Interlock signal to FEA
+record(bi, "$(Sys){}Sts:ToFE_A-Sts")
+{
+        field(DESC, "Interlock to FE-A")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[4] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Interlock signal to FEB
+record(bi, "$(Sys){}Sts:ToFE_B-Sts")
+{
+        field(DESC, "Interlock to FE-B")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[5] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# G1 TCG to straight section IP
+record(bi, "$(Sys):G1{TCG:1}Sts:Rly2PLC-Sts")
+{
+        field(DESC, "G1TCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[6] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# G5 TCG to arc section IP 
+record(bi, "$(Sys):G5{TCG:1}Sts:Rly2PLC-Sts")
+{
+        field(DESC, "G5TCG Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[7] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# Slow interlock signal to EPS
+record(bi, "$(Sys){}Sts:SlowIntlkToEPS-Sts")
+{
+        field(DESC, "Slow Interlock to EPS")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[8] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Fast interlock signal to EPS
+record(bi, "$(Sys){}Sts:FastIntlkToEPS-Sts")
+{
+        field(DESC, "Fast Interlock to EPS")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[9] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# RTD interlock signal to EPS
+record(bi, "$(Sys){}Sts:RTD_IntlkToEPS-Sts")
+{
+        field(DESC, "RTD Interlock to EPS")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[10] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Ethernet link status signal
+record(bi, "$(Sys){}Sts:LAN-Sts")
+{
+        field(DESC, "Ethernet Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[11] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# CPU status signal       
+record(bi, "$(Sys){}Sts:CPU-Sts")
+{
+        field(DESC, "CPU Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[12] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# IO module status signal       
+record(bi, "$(Sys){}Sts:IO-Sts")
+{
+        field(DESC, "IO Module Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[13] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# GV1 DS interlock signal
+record(bi, "$(Sys){GV:1}Sts:DS_Intlk-Sts")
+{
+        field(DESC, "GV1 DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[30] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV2 DS interlock signal
+record(bi, "$(Sys){GV:2}Sts:DS_Intlk-Sts")
+{
+        field(DESC, "GV2 DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[31] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV1 open/close command
+record(bo, "$(Sys){GV:1}Cmd:Opn-Cmd")
+{
+        field(DESC, "GV1 Open Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[0] S 0.5")
+        field(ZNAM, "Not Open")
+        field(ONAM, "Open")
+}
+
+record(bo, "$(Sys){GV:1}Cmd:Cls-Cmd")
+{
+        field(DESC, "GV1 Close Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[1] S 0.5")
+        field(ZNAM, "Not Close")
+        field(ONAM, "Close")
+}
+
+# GV2 open/close command
+record(bo, "$(Sys){GV:2}Cmd:Opn-Cmd")
+{
+        field(DESC, "GV2 Open Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[2] S 0.5")
+        field(ZNAM, "Not Open")
+        field(ONAM, "Open")
+}
+
+record(bo, "$(Sys){GV:2}Cmd:Cls-Cmd")
+{
+        field(DESC, "GV2 Close Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[3] S 0.5")
+        field(ZNAM, "Not Close")
+        field(ONAM, "Close")
+}
+
+# GV1 Status calc
+record(calc, "$(Sys){GV:1}DB:Pos-Calc_")
+{
+        field(DESC, "GV1 Calc")
+        field(SCAN, ".5 second")
+        field(INPA, "$(Sys){GV:1}Err-Sts NPP MS")
+        field(INPB, "$(Sys){GV:1}Pos-Sts NPP MS")
+
+        field(CALC, "A?2:B?1:0")
+        field(FLNK, "$(Sys){GV:1}DB:Pos-Sts")
+}
+
+record(mbbi, "$(Sys){GV:1}DB:Pos-Sts")
+{
+        field(DESC, "GV1 Sts")
+        field(INP,  "$(Sys){GV:1}DB:Pos-Calc_ NPP MS")
+        field(ZRST, "Closed")
+        field(ONST, "Open")
+        field(TWST, "Error")
+        field(ZRSV, "MINOR")
+        field(TWSV, "MAJOR")
+}
+
+# GV2 status calc
+record(calc, "$(Sys){GV:2}DB:Pos-Calc_")
+{
+        field(DESC, "GV2 Calc")
+        field(SCAN, ".5 second")
+        field(INPA, "$(Sys){GV:2}Err-Sts NPP MS")
+        field(INPB, "$(Sys){GV:2}Pos-Sts NPP MS")
+
+        field(CALC, "A?2:B?1:0")
+        field(FLNK, "$(Sys){GV:2}DB:Pos-Sts")
+}
+
+record(mbbi, "$(Sys){GV:2}DB:Pos-Sts")
+{
+        field(DESC, "GV2 Sts")
+        field(INP,  "$(Sys){GV:2}DB:Pos-Calc_ NPP MS")
+        field(ZRST, "Closed")
+        field(ONST, "Open")
+        field(TWST, "Error")
+        field(ZRSV, "MINOR")
+        field(TWSV, "MAJOR")
+}
+
+# RTD readings
+record(ai, "$(Sys){RTD:01}T-I")
+{
+        field(DESC, "RTD01 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[0] S 0.5")
+	field(PREC, "1")
+	field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:02}T-I")
+{
+        field(DESC, "RTD02 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[1] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:03}T-I")
+{
+        field(DESC, "RTD03 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[2] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:04}T-I")
+{
+        field(DESC, "RTD04 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[3] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:05}T-I")
+{
+        field(DESC, "RTD05 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[4] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:06}T-I")
+{
+        field(DESC, "RTD06 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[5] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:07}T-I")
+{
+        field(DESC, "RTD07 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[6] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:08}T-I")
+{
+        field(DESC, "RTD08 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[7] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:09}T-I")
+{
+        field(DESC, "RTD09 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[8] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:10}T-I")
+{
+        field(DESC, "RTD10 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[9] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:11}T-I")
+{
+        field(DESC, "RTD11 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[10] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+record(ai, "$(Sys){RTD:12}T-I")
+{
+        field(DESC, "RTD12 T")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP,  "@$(PLC) RTD_EPICS[11] S 0.5")
+        field(PREC, "1")
+        field(HIHI, "850")
+        field(HHSV, "INVALID")
+}
+
+# Set RTD setpoint
+record(ao, "$(Sys){RTD:01}T-SP")
+{
+        field(DESC, "RTD01 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[0] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:02}T-SP")
+{
+        field(DESC, "RTD02 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[1] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:03}T-SP")
+{
+        field(DESC, "RTD03 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[2] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:04}T-SP")
+{
+        field(DESC, "RTD04 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[3] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:05}T-SP")
+{
+        field(DESC, "RTD05 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[4] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:06}T-SP")
+{
+        field(DESC, "RTD06 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[5] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:07}T-SP")
+{
+        field(DESC, "RTD07 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[6] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:08}T-SP")
+{
+        field(DESC, "RTD08 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[7] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:09}T-SP")
+{
+        field(DESC, "RTD09 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[8] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:10}T-SP")
+{
+        field(DESC, "RTD10 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[9] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:11}T-SP")
+{
+        field(DESC, "RTD11 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[10] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+record(ao, "$(Sys){RTD:12}T-SP")
+{
+        field(DESC, "RTD12 SP")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) RTD_EPICS_SP[11] S 0.5")
+        field(PREC, "1")
+        field(DRVH, "120")
+}
+
+

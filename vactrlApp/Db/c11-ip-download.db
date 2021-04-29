@@ -1,0 +1,295 @@
+## Database for SR:C17 Ion pump Parameter download
+## Mar 23, 2011, BNL
+
+record(mbbo, "$(Sys){}DB:IP_Type-Sel")
+{
+	field(DESC, "IP Type Sel")
+	field(ZRST, "100L/s")
+	field(ONST, "200L/s")
+	field(TWST, "45L/s")
+	field(FLNK, "$(Sys){}DB:IP_Type-ASub_")
+	field(VAL,  "0")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(aSub, "$(Sys){}DB:IP_Type-ASub_")
+{
+	field(INAM, "asubIPInit")
+	field(SNAM, "asubIPParam")
+	field(INPA, "$(Sys){}DB:IP_Type-Sel")
+	field(FTA,  "SHORT")
+	field(NOA,  "1")	
+	field(OUTA, "$(Sys){}DB:IP_P_100nA-SP PP")
+	field(FTVA, "DOUBLE")
+	field(NOVA, "1")
+	field(OUTB, "$(Sys){}DB:IP_P_10uA-SP PP")
+	field(FTVB, "DOUBLE")
+	field(NOVB, "1")
+	field(OUTC, "$(Sys){}DB:IP_P_10mA-SP PP")
+	field(FTVC, "DOUBLE")
+	field(NOVC, "1")	
+	field(OUTD, "$(Sys){}DB:IP_P_400mA-SP PP")
+	field(FTVD, "DOUBLE")	
+	field(NOVD, "1")
+        field(OUTE, "$(Sys){}DB:IP_P_SP1-SP PP")
+        field(FTVE, "DOUBLE")
+        field(NOVE, "1")
+        field(OUTF, "$(Sys){}DB:IP_P_SP2-SP PP")
+        field(FTVF, "DOUBLE")
+        field(NOVF, "1")
+}
+
+record(longout, "$(Sys){}DB:IP_E_Max-SP")
+{
+        field(DESC, "Max Volt")
+        field(EGU,  "V")
+        field(ASG,  "VAWRITE")
+        field(HOPR, "7000")
+        field(LOPR, "3000")
+        field(VAL,  "5000")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(longout, "$(Sys){}DB:IP_I_Max-SP")
+{
+        field(DESC, "Max Current")
+        field(EGU,  "mA")
+        field(ASG,  "VAWRITE")
+        field(HOPR, "400")
+        field(LOPR, "100")
+	field(VAL,  "100")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(longout, "$(Sys){}DB:IP_Pwr_Max-SP")
+{
+        field(DESC, "Max Power")
+        field(EGU,  "W")
+        field(ASG,  "VAWRITE")
+        field(HOPR, "400")
+        field(LOPR, "100")
+	field(VAL,  "200")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_100nA-SP")
+{
+        field(DESC, "Pr@5000V I=100nA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+	field(VAL,  "5.3E-11")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_10uA-SP")
+{
+        field(DESC, "Pr@5000V I=10uA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+	field(VAL,  "5.3E-9")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_10mA-SP")
+{
+        field(DESC, "Pr@5000V I=10mA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+	field(VAL,  "5.3E-6")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_400mA-SP")
+{
+        field(DESC, "Pr@5000V I=400mA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-6")
+        field(HOPR, "9.9E2")
+	field(VAL,  "1.7E-4")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_SP1-SP")
+{
+        field(DESC, "Setpoint1 Set")
+        field(ASG,  "VAWRITE")
+        field(PREC, "1")
+        field(EGU,  "Torr")
+        field(LOPR, "1.0E-8")
+        field(HOPR, "1.0E-5")
+        field(DOL,  "SR-VA{}DB:P_Alrm-SP")
+        field(OMSL, "closed_loop")
+        info(autosaveFields_pass0, "VAL")
+        field(FLNK, "$(Sys){}DB:IP_P_Warn-SP")
+}
+
+record(ao, "$(Sys){}DB:IP_P_Warn-SP")
+{
+        field(DESC, "Warn P Calc")
+        field(VAL,  "4.0E-8")
+        field(ASG,  "VAWRITE")
+        info(autosaveFields_pass0, "VAL")
+        field(DOL,  "SR-VA{}DB:P_Warn-SP")
+        field(OMSL, "closed_loop")
+}
+
+record(ao, "$(Sys){}DB:IP_P_SP2-SP")
+{
+	field(DESC, "Setpoint2 Set")
+	field(ASG,  "VAWRITE")
+	field(PREC, "1")
+	field(EGU,  "Torr")
+     	field(LOPR, "1.0E-9")
+     	field(HOPR, "1.0E-5")
+	field(VAL,  "1.0E-8")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(bo, "$(Sys){}DB:IP_Dwnld45-Cmd")
+{
+        field(DESC, "45L/s IP Download")
+        field(FLNK, "$(Sys){}DB:IP_Dwnld45-Seq_")
+        field(ASG,  "VAWRITE")
+        info(autosaveFields_pass0, "VAL")
+}
+
+record(seq, "$(Sys){}DB:IP_Dwnld45-Seq_")
+{
+        field(DESC, "45L/s Seq")
+        field(SELM, "All")
+        field(DO1, "1")
+#        field(LNK1, "$(Sys):G1{IP:2}DB:Dwnld-Cmd PP")
+}
+
+record(bo, "$(Sys){}DB:IP_Dwnld100-Cmd")
+{
+        field(DESC, "100L/s IP Download")
+        field(FLNK, "$(Sys){}DB:IP_Dwnld100-Seq_")
+	field(SDIS, "$(Sys){}DB:IP_Type-Sel")
+	field(DISV, "1")
+        field(ASG,  "VAWRITE")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(seq, "$(Sys){}DB:IP_Dwnld100-Seq_")
+{
+	field(DESC, "100L/s Seq")
+	field(SELM, "All")
+	field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(LNK1, "$(Sys):G2{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK2, "$(Sys):G4{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK3, "$(Sys):G4{IP:2}DB:Dwnld-Cmd PP")
+	field(DLY3, "35")
+}
+
+record(bo, "$(Sys){}DB:IP_Dwnld200-Cmd")
+{
+        field(DESC, "200L/s IP Download")
+        field(FLNK, "$(Sys){}DB:IP_Dwnld200-Seq_")
+	field(SDIS, "$(Sys){}DB:IP_Type-Sel")
+        field(DISV, "0")
+        field(ASG,  "VAWRITE")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(seq, "$(Sys){}DB:IP_Dwnld200-Seq_")
+{
+        field(DESC, "200L/s Seq")
+        field(SELM, "All")
+        field(DO1,  "1")
+        field(DO2,  "1")
+	field(DO3,  "1")
+	field(DO4,  "1")
+	field(DO5,  "1")
+        field(LNK1, "$(Sys):G1{IP:1}DB:Dwnld-Cmd PP")
+#	field(LNK2, "$(Sys):G1{IP:3}DB:Dwnld-Cmd PP")
+        field(LNK3, "$(Sys):G3{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK4, "$(Sys):G5{IP:1}DB:Dwnld-Cmd PP")
+        field(LNK5, "$(Sys):G6{IP:1}DB:Dwnld-Cmd PP")
+	field(DLY3, "35")
+	field(DLY4, "50")
+	field(DLY5, "70")
+}
+
+# Turn HV on after interlock
+record(bo, "$(Sys){}DB:IP_IntlkClr-Cmd")
+{
+        field(DESC, "IP Intlk Clear")
+        field(FLNK, "$(Sys){}DB:IP_IntlkClr-FOut_")
+        field(ASG,  "VAWRITE")
+        info(autosaveFields_pass0, "VAL")
+}
+
+record(fanout, "$(Sys){}DB:IP_IntlkClr-FOut_")
+{
+	field(LNK1, "$(Sys){}DB:IP_IntlkClr-Seq1_")
+	field(LNK2, "$(Sys){}DB:IP_IntlkClr-Seq2_")
+}
+
+record(seq, "$(Sys){}DB:IP_IntlkClr-Seq1_")
+{
+	field(DESC, "IP Intlk Clr Seq1")
+	field(SDIS, "$(Sys):G1{TCG:1}Sts:Rly1PLC-Sts")
+	field(DISV, "0")
+	field(SELM, "All")
+	field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(LNK1, "$(Sys):G1{IP:1}Cmd:HV_On-Cmd PP")
+#        field(LNK2, "$(Sys):G1{IP:2}Cmd:HV_On-Cmd PP")
+#        field(LNK3, "$(Sys):G1{IP:3}Cmd:HV_On-Cmd PP")
+}
+
+record(seq, "$(Sys){}DB:IP_IntlkClr-Seq2_")
+{
+        field(DESC, "C17 IP Intlk Clr Seq2")
+	field(SDIS, "$(Sys):G5{TCG:1}Sts:Rly1PLC-Sts")
+        field(DISV, "0")
+        field(SELM, "All")
+        field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(DO4, "1")
+	field(DO5, "1")
+	field(DO6, "1")
+        field(LNK1, "$(Sys):G2{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK2, "$(Sys):G3{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK3, "$(Sys):G4{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK4, "$(Sys):G4{IP:2}Cmd:HV_On-Cmd PP")
+	field(LNK5, "$(Sys):G5{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK6, "$(Sys):G6{IP:1}Cmd:HV_On-Cmd PP")
+}
+
+# G1 average pressure
+record(sub, "$(Sys){}P:GV1GV2Avg-I")
+{
+        field(DESC, "P:GV1GV2")
+        field(INPA, "$(Sys):G1{CCG:1}P-I MSS NPP")
+        field(INPB, "$(Sys):G1{CCG:2}P-I MSS NPP")
+        field(INPC, "$(Sys):G1{IP:1}P-I MSS NPP")
+        field(INPD, "$(Sys):G1{IP:2}P-I MSS NPP")
+        field(INPE, "$(Sys):G1{IP:3}P-I MSS NPP")
+        field(INAM, "subAvgPrInit")
+        field(SNAM, "subCommonAvgPrCalc")
+        field(PREC, "1")
+        field(HIHI, "2.0E-7")
+        field(HIGH, "4.0E-8")
+        field(LOLO, "1.0E-12")
+        field(HHSV, "MAJOR")
+        field(HSV,  "MINOR")
+        field(LLSV, "MINOR")
+}
+

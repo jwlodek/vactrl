@@ -1,0 +1,9 @@
+file sr-ut-temperature.template
+{
+	pattern { INDX	}
+		{ 1	}
+		{ 2	}
+		{ 3 	}
+		{ 4	}
+		{ 5	}
+}

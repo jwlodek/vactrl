@@ -1,0 +1,1377 @@
+## Database for Omega CN7500 temperature controller
+## Substitutions:
+## Pri		-	Primary system
+## Sec		-	Secodary system, including serial number
+## Dev		-	Device name
+## HEXADR	-	Unit address
+## PORT		-	IP or Serial port name
+
+# Set if the controller is in use
+record(bo, "$(Sys)$(Dev)Cmd:Use-Cmd")
+{
+	field(DESC, "Use Sel")
+	field(ASG,  "VAWRITE")
+	field(ZNAM, "Not use")
+	field(ONAM, "In Use")
+}
+
+# Get process value
+record(ai, "$(Sys)$(Dev)T-I")
+{
+	field(DTYP, "stream")
+	field(DESC, "Process Value")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1000) $(PORT)")
+	field(DISV, "0")
+	field(SDIS, "$(Sys)$(Dev)Cmd:Use-Cmd")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(EGU,  "Celsius")
+	field(SCAN, "1 second")
+	field(LSV,  "INVALID")
+	field(HSV,  "MINOR")
+	field(HHSV, "MAJOR")
+	field(LOW,  "0")
+	field(HIGH, "160")
+	field(HIHI, "210")
+}
+
+## Scan records
+# Calc the sequence for scan
+record(calcout, "$(Sys)$(Dev)DB:Scan-Calc_") 
+{
+	field(DESC, "Scan Calc")
+	field(DISV, "0")
+	field(SDIS, "$(Sys)$(Dev)Cmd:Use-Cmd")
+	field(SCAN, "5 second")
+	field(CALC, "(A<B)?(A+C):D")
+	field(INPA, "$(Sys)$(Dev)DB:Scan-Calc_")
+	field(INPB, "7")
+	field(INPC, "1")
+	field(INPD, "1")
+	field(OUT,  "$(Sys)$(Dev)DB:Scan-FOut_.SELN")
+	field(FLNK, "$(Sys)$(Dev)DB:Scan-FOut_")
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan-FOut_")
+{
+	field(DESC, "Scan Fanout1")
+	field(SELM, "Specified")
+	field(LNK1, "$(Sys)$(Dev)DB:Scan1-FOut_")
+	field(LNK2, "$(Sys)$(Dev)DB:Scan2-FOut_")
+	field(LNK3, "$(Sys)$(Dev)DB:Scan3-FOut_")
+	field(LNK4, "$(Sys)$(Dev)DB:Scan4-FOut_")
+	field(LNK5, "$(Sys)$(Dev)DB:Scan5-FOut_")
+	field(LNK6, "$(Sys)$(Dev)DB:Scan6-FOut_")
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan1-FOut_")
+{
+	field(DESC, "Scan Fanout1")
+	field(LNK1, "$(Sys)$(Dev)T-RB")
+	field(LNK2, "$(Sys)$(Dev)T:Hi-RB")
+	field(LNK3, "$(Sys)$(Dev)T:Lo-RB")
+	field(LNK4, "$(Sys)$(Dev)Mode:Ctrl-Sts") 
+	field(LNK5, "$(Sys)$(Dev)Mode:HC_Ctrl-Sts") 
+	field(LNK6, "$(Sys)$(Dev)Type:Alrm1-Sts") 
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan2-FOut_")
+{
+	field(DESC, "Scan Fanout2")
+	field(LNK1, "$(Sys)$(Dev)Sts:SysAlrm-Sts") 
+	field(LNK2, "$(Sys)$(Dev)T:Alrm1Hi-RB")
+	field(LNK3, "$(Sys)$(Dev)T:Alrm1Lo-RB")
+	field(LNK4, "$(Sys)$(Dev)Sts:Alrm1-Sts")
+	field(LNK5, "$(Sys)$(Dev)Time:Left-I") 
+	field(LNK6, "$(Sys)$(Dev)Val:Out1-RB")
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan3-FOut_")
+{
+	field(DESC, "Scan Fanout3")
+	field(LNK1, "$(Sys)$(Dev)Val:LiveStep-I") 
+	field(LNK2, "$(Sys)$(Dev)T:Step0-RB") 
+	field(LNK3, "$(Sys)$(Dev)T:Step1-RB") 
+	field(LNK4, "$(Sys)$(Dev)T:Step2-RB")
+	field(LNK5, "$(Sys)$(Dev)T:Step3-RB") 
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan4-FOut_")
+{
+	field(DESC, "Scan Fanout4")
+	field(LNK1, "$(Sys)$(Dev)T:Step4-RB") 
+	field(LNK2, "$(Sys)$(Dev)T:Step5-RB") 
+	field(LNK3, "$(Sys)$(Dev)T:Step6-RB") 
+	field(LNK4, "$(Sys)$(Dev)T:Step7-RB")
+	field(LNK5, "$(Sys)$(Dev)Sts:LED-Sts") 
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan5-FOut_")
+{
+	field(DESC, "Scan Fanout4")
+	field(LNK1, "$(Sys)$(Dev)Time:Step0-RB") 
+	field(LNK2, "$(Sys)$(Dev)Time:Step1-RB") 
+	field(LNK3, "$(Sys)$(Dev)Time:Step2-RB") 
+	field(LNK4, "$(Sys)$(Dev)Time:Step3-RB") 
+	field(LNK5, "$(Sys)$(Dev)Time:Step4-RB")	
+}
+
+record(fanout, "$(Sys)$(Dev)DB:Scan6-FOut_")
+{
+	field(DESC, "Scan Fanout4")
+	field(LNK1, "$(Sys)$(Dev)Time:Step5-RB") 
+	field(LNK2, "$(Sys)$(Dev)Time:Step6-RB") 
+	field(LNK3, "$(Sys)$(Dev)Time:Step7-RB") 
+	field(LNK4, "$(Sys)$(Dev)Sts:Ctrl-Sts") 
+	field(LNK5, "$(Sys)$(Dev)Sts:PID-Sts")
+}
+
+# Set/Get set point value
+record(ao, "$(Sys)$(Dev)T-SP")
+{
+        field(DTYP, "stream")
+        field(DESC, "Setpoint")
+        field(OUT,  "@cn7500.proto write_reg($(HEXADR),1001) $(PORT)")
+        field(LINR, "SLOPE")
+        field(ESLO, "0.1")
+        field(PREC, "1")
+        field(EGU,  "Celsius")
+        field(ASG,  "VAWRITE")
+        field(DRVH, "600")
+        field(DRVL, "0")
+}
+
+record(ai, "$(Sys)$(Dev)T-RB")
+{
+        field(DTYP, "stream")
+        field(DESC, "Setpoint Readback")
+        field(INP,  "@cn7500.proto read_reg($(HEXADR),1001) $(PORT)")
+        field(LINR, "SLOPE")
+        field(ESLO, "0.1")
+        field(PREC, "1")
+        field(EGU,  "Celsius")
+}
+
+# Set/Get upper-limit of temperature range
+record(ao, "$(Sys)$(Dev)T:Hi-SP")
+{
+	field(DTYP, "stream")
+	field(DESC, "Set T Hi Limit")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1002) $(PORT)")
+	field(DRVH, "600")
+	field(DRVL, "0")	
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Hi-RB")
+{
+	field(DTYP, "stream")
+	field(DESC, "T Hi Limit")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1002) $(PORT)")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(EGU,  "Celsius")
+	
+}
+
+# Set/Get lower-limit of temperature range
+record(ao, "$(Sys)$(Dev)T:Lo-SP")
+{
+	field(DTYP, "stream")
+	field(DESC, "Set T Lo Limit")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1003) $(PORT)")
+	field(DRVH, "600")
+	field(DRVL, "0")	
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Lo-RB")
+{
+	field(DTYP, "stream")
+	field(DESC, "T Lo Limit")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1003) $(PORT)")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(EGU,  "Celsius")
+}
+
+# Get input temperature sensor type
+record(mbbi, "$(Sys)$(Dev)Type:Sensor-Sts")
+{
+	field(DTYP, "stream")
+	field(DESC, "Sensor Type")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1004) $(PORT)")
+	field(ZRST, "K type")
+	field(ONST, "J type")
+	field(TWST, "T type")
+	field(THST, "E type")
+	field(FRST, "N type")
+	field(FVST, "R type")
+	field(SXST, "S type")
+	field(SVST, "B type")
+	field(EIST, "L type")
+	field(NIST, "U type")
+	field(TEST, "TXK type")
+	field(ELST, "JPt100")
+	field(TVST, "Pt100")
+	field(TTST, "AI0-5V")
+	field(FTST, "AI0-10V")
+	field(FFST, "AI0-20mA")	
+}
+
+# Set/Get control method
+record(mbbo, "$(Sys)$(Dev)Mode:Ctrl-Sel")
+{
+	field(DTYP, "stream")
+	field(DESC, "Control Method")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1005) $(PORT)")
+	field(ASG,  "VAWRITE")
+	field(ZRST, "PID")
+	field(ONST, "ON/OFF")
+	field(TWST, "Manual Tuning")
+	field(THST, "PID Program")
+}
+
+record(mbbi, "$(Sys)$(Dev)Mode:Ctrl-Sts")
+{
+	field(DTYP, "stream")
+	field(DESC, "Control Method")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1005) $(PORT)")
+	field(ZRST, "PID")
+	field(ONST, "ON/OFF")
+	field(TWST, "Manual Tuning")
+	field(THST, "PID Program")
+}
+
+# Set/Get heating/cooling control 
+record(mbbo, "$(Sys)$(Dev)Mode:HC_Ctrl-Sel")
+{
+	field(DTYP, "stream")
+	field(DESC, "Heat Mode")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1006) $(PORT)")
+	field(ASG,  "VAWRITE")
+	field(ZRST, "Heating")
+	field(ONST, "Cooling")
+	field(TWST, "Heating/Cooling")
+	field(THST, "Cooling/Heating")
+}
+
+record(mbbi, "$(Sys)$(Dev)Mode:HC_Ctrl-Sts")
+{
+	field(DTYP, "stream")
+	field(DESC, "Heat Mode")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1006) $(PORT)")
+	field(ZRST, "Heating")
+	field(ONST, "Cooling")
+	field(TWST, "Heating/Cooling")
+	field(THST, "Cooling/Heating")
+}
+
+# Output value read and write of output 1
+record(ao, "$(Sys)$(Dev)Val:Out1-SP")
+{
+        field(DTYP, "stream")
+        field(DESC, "Out1 Manual Output")
+        field(OUT,  "@cn7500.proto write_reg($(HEXADR),1012) $(PORT)")
+        field(FLNK, "$(Sys)$(Dev)Val:Out1-RB")
+        field(LINR, "SLOPE")
+        field(ESLO, "0.1")
+        field(PREC, "1")
+        field(EGU,  "Percent")
+        field(ASG,  "VAWRITE")
+        field(DRVH, "100")
+        field(DRVL, "0")
+}
+
+record(ai, "$(Sys)$(Dev)Val:Out1-RB")
+{
+        field(DTYP, "stream")
+        field(DESC, "Out1 Manual Output Readback")
+        field(INP,  "@cn7500.proto read_reg($(HEXADR),1012) $(PORT)")
+        field(LINR, "SLOPE")
+        field(ESLO, "0.1")
+        field(PREC, "1")
+        field(EGU,  "Percent")
+}
+
+# Set/Get alarm type
+record(mbbo, "$(Sys)$(Dev)Type:Alrm1-Sel") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Alarm1 Type") 
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1020) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Type:Alrm1-Sts") 
+	field(ZRST, "0:Disabled")
+      field(ONST, "1:Dev Up-Lo")
+      field(TWST, "2:Dev Up")
+      field(THST, "3:Dev Lo")
+      field(FRST, "4:Rev Up-Lo")
+      field(FVST, "5:Abs Up-Lo")
+      field(SXST, "6:Abs Up")
+      field(SVST, "7:Abs Lo")
+      field(EIST, "8:Std Up-Lo")
+      field(NIST, "9:Std Up")
+      field(TEST, "10:Std Lo")
+	field(ELST, "11:Hys Up")
+	field(TVST, "12:Hys Lo")
+	field(TTST, "13:CT Alrm")
+	field(ASG,  "VAWRITE")
+}
+
+record(mbbi, "$(Sys)$(Dev)Type:Alrm1-Sts") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Alarm1 Type")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1020) $(PORT)")
+	field(ZRST, "0:Disabled")
+      field(ONST, "1:Dev Up-Lo")
+      field(TWST, "2:Dev Up")
+      field(THST, "3:Dev Lo")
+      field(FRST, "4:Rev Up-Lo")
+      field(FVST, "5:Abs Up-Lo")
+      field(SXST, "6:Abs Up")
+      field(SVST, "7:Abs Lo")
+      field(EIST, "8:Std Up-Lo")
+      field(NIST, "9:Std Up")
+      field(TEST, "10:Std Lo")
+	field(ELST, "11:Hys Up")
+	field(TVST, "12:Hys Lo")
+	field(TTST, "13:CT Alrm")
+}
+
+# Set/Get system alarm
+record(mbbo, "$(Sys)$(Dev)Cmd:SysAlrm-Sel") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set System Alarm") 
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1023) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Sts:SysAlrm-Sts") 
+	field(ZRST, "None")
+      field(ONST, "Alarm1")
+	field(ASG,  "VAWRITE")
+}
+
+record(mbbi, "$(Sys)$(Dev)Sts:SysAlrm-Sts") 
+{
+	field(DTYP, "stream")
+	field(DESC, "System Alarm") 
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1023) $(PORT)")
+	field(ZRST, "None")
+      field(ONST, "Alarm1")
+}
+
+# Set/Get upper-limit alarm 1
+record(ao, "$(Sys)$(Dev)T:Alrm1Hi-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Alarm1 Hi")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1024) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Alrm1Hi-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Alrm1Hi-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Alarm1 Hi")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1024) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+}
+
+# Set/Get lower-limit alarm 1
+record(ao, "$(Sys)$(Dev)T:Alrm1Lo-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Alarm1 Lo")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),1025) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Alrm1Lo-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Alrm1Lo-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Alarm Lo")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1025) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+}
+
+# Get alarm 1 status
+record(mbbiDirect, "$(Sys)$(Dev)Sts:LED-Sts") 
+{
+	field(DTYP, "stream")
+	field(DESC, "LED Status")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),102A) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)DB:LED-FOut_")
+	field(NOBT, "8")
+}
+
+record(fanout, "$(Sys)$(Dev)DB:LED-FOut_")
+{
+        field(DESC, "LED Fanout")
+        field(LNK1, "$(Sys)$(Dev)Sts:Alrm1-Sts")
+        field(LNK2, "$(Sys)$(Dev)Sts:Alrm2-Sts")
+        field(LNK3, "$(Sys)$(Dev)Sts:Alrm3-Sts")
+        field(LNK4, "$(Sys)$(Dev)Sts:Out1-Sts")
+        field(LNK5, "$(Sys)$(Dev)Sts:Out2-Sts")
+        field(LNK6, "$(Sys)$(Dev)Sts:AT-Sts")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Alrm1-Sts")
+{
+        field(DESC, "Alarm1 Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B4")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Alrm2-Sts")
+{
+        field(DESC, "Alarm1 Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B1")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Alrm3-Sts")
+{
+        field(DESC, "Alarm1 Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B0")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Out1-Sts")
+{
+        field(DESC, "Out1 Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B6")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Out2-Sts")
+{
+        field(DESC, "Out1 Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B5")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:AT-Sts")
+{
+        field(DESC, "AT Status")
+        field(INP,  "$(Sys)$(Dev)Sts:LED-Sts.B7")
+        field(ZNAM, "OFF")
+        field(ONAM, "ON")
+}
+
+# Get left time of on going step in minute
+record(longin, "$(Sys)$(Dev)Time:Left-I")
+{
+	field(DTYP, "stream")
+	field(DESC, "Step Left Time")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1033) $(PORT)")
+	field(EGU,  "Minute")
+	field(FLNK, "$(Sys)$(Dev)Time:LeftHH-Calc_")	
+}
+
+record(calcout, "$(Sys)$(Dev)Time:LeftHH-Calc_") 
+{
+	field(DESC, "Left HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Left-I") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:LeftHH-I PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:LeftMM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:LeftHH-I") 
+{
+	field(DESC, "Left HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:LeftMM-Calc_") 
+{
+	field(DESC, "Left MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Left-I") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:LeftMM-I PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:LeftMM-I") 
+{
+	field(DESC, "Left MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Get current step
+record(longin, "$(Sys)$(Dev)Val:LiveStep-I")
+{
+	field(DTYP, "stream")
+	field(DESC, "Current Step")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),1034) $(PORT)")
+}
+
+# Set/Get pattern temperature set point
+record(ao, "$(Sys)$(Dev)T:Step0-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step0 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2000) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step0-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step0-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step0 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2000) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(FLNK, "$(Sys)$(Dev)T:Step1-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step1-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step1 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2001) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step1-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step1-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step1 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2001) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(FLNK, "$(Sys)$(Dev)T:Step2-RB")		
+}
+
+record(ao, "$(Sys)$(Dev)T:Step2-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step2 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2002) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step2-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step2-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step2 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2002) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(FLNK, "$(Sys)$(Dev)T:Step3-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step3-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step3 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2003) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step3-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step3-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step3 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2003) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(FLNK, "$(Sys)$(Dev)T:Step4-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step4-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step4 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2004) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step4-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step4-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step4 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2004) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(FLNK, "$(Sys)$(Dev)T:Step5-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step5-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step5 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2005) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step5-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(ASG,  "VAWRITE")	
+}
+
+record(ai, "$(Sys)$(Dev)T:Step5-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step5 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2005) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(FLNK, "$(Sys)$(Dev)T:Step6-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step6-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step6 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2006) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step6-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step6-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step6 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2006) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(FLNK, "$(Sys)$(Dev)T:Step7-RB")	
+}
+
+record(ao, "$(Sys)$(Dev)T:Step7-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step7 SP")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2007) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)T:Step7-RB")
+	field(EGU,  "Celsius")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(ASG,  "VAWRITE")
+}
+
+record(ai, "$(Sys)$(Dev)T:Step7-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step7 SP")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2007) $(PORT)")
+	field(EGU,  "Celsius")
+	field(HOPR, "999.9")
+	field(LOPR, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+}
+
+# Set/Get pattern execution time
+# Step 0
+record(longout, "$(Sys)$(Dev)Time:Step0-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step0 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2080) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step0-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step0-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step0 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2080) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step0HH-Calc_")	
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step0HH-Calc_") 
+{
+	field(DESC, "Step0 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step0-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step0HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step0MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step0HH-RB") 
+{
+	field(DESC, "Step0 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step0MM-Calc_") 
+{
+	field(DESC, "Step0 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step0-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step0MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step0MM-RB") 
+{
+	field(DESC, "Step0 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+
+# Step 1
+record(longout, "$(Sys)$(Dev)Time:Step1-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step1 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2081) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step1-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step1-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step1 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2081) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step1HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step1HH-Calc_") 
+{
+	field(DESC, "Step1 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step1-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step1HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step1MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step1HH-RB") 
+{
+	field(DESC, "Step1 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step1MM-Calc_") 
+{
+	field(DESC, "Step1 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step1-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step1MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step1MM-RB") 
+{
+	field(DESC, "Step1 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 2
+record(longout, "$(Sys)$(Dev)Time:Step2-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step2 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2082) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step2-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step2-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step2 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2082) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step2HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step2HH-Calc_") 
+{
+	field(DESC, "Step2 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step2-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step2HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step2MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step2HH-RB") 
+{
+	field(DESC, "Step2 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step2MM-Calc_") 
+{
+	field(DESC, "Step2 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step2-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step2MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step2MM-RB") 
+{
+	field(DESC, "Step2 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 3
+record(longout, "$(Sys)$(Dev)Time:Step3-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step3 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2083) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step3-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step3-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step3 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2083) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step3HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step3HH-Calc_") 
+{
+	field(DESC, "Step3 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step3-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step3HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step3MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step3HH-RB") 
+{
+	field(DESC, "Step3 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step3MM-Calc_") 
+{
+	field(DESC, "Step3 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step3-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step3MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step3MM-RB") 
+{
+	field(DESC, "Step3 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 4
+record(longout, "$(Sys)$(Dev)Time:Step4-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step4 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2084) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step4-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step4-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step4 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2084) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step4HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step4HH-Calc_") 
+{
+	field(DESC, "Step4 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step4-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step4HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step4MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step4HH-RB") 
+{
+	field(DESC, "Step4 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step4MM-Calc_") 
+{
+	field(DESC, "Step4 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step4-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step4MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step4MM-RB") 
+{
+	field(DESC, "Step4 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 5
+record(longout, "$(Sys)$(Dev)Time:Step5-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step5 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2085) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step5-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step5-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step5 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2085) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step5HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step5HH-Calc_") 
+{
+	field(DESC, "Step5 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step5-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step5HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step5MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step5HH-RB") 
+{
+	field(DESC, "Step5 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step5MM-Calc_") 
+{
+	field(DESC, "Step5 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step5-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step5MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step5MM-RB") 
+{
+	field(DESC, "Step5 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 6
+record(longout, "$(Sys)$(Dev)Time:Step6-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step6 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2086) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step6-RB")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step6-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step6 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2086) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step6HH-Calc_")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step6HH-Calc_") 
+{
+	field(DESC, "Step6 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step6-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step6HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step6MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step6HH-RB") 
+{
+	field(DESC, "Step6 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step6MM-Calc_") 
+{
+	field(DESC, "Step6 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step6-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step6MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step6MM-RB") 
+{
+	field(DESC, "Step6 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Step 7
+record(longout, "$(Sys)$(Dev)Time:Step7-SP") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Step7 ExeK")
+	field(OUT,  "@cn7500.proto write_reg($(HEXADR),2087) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Time:Step7-RB")
+	field(EGU,  "Minute")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step7-RB") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Step7 ExeK")
+	field(INP,  "@cn7500.proto read_reg($(HEXADR),2087) $(PORT)")
+	field(EGU,  "Minute")
+	field(HOPR, "900")
+	field(LOPR, "0")
+	field(FLNK, "$(Sys)$(Dev)Time:Step7HH-Calc_")	
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step7HH-Calc_") 
+{
+	field(DESC, "Step7 HH Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step7-RB") 
+	field(CALC, "A/60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step7HH-RB PP")  
+	field(FLNK, "$(Sys)$(Dev)Time:Step7MM-Calc_")	
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step7HH-RB") 
+{
+	field(DESC, "Step7 HH")
+	field(EGU,  "Hour")
+	field(HOPR, "15")
+	field(LOPR, "0")
+}
+
+record(calcout, "$(Sys)$(Dev)Time:Step7MM-Calc_") 
+{
+	field(DESC, "Step7 MM Calc")
+	field(INPA, "$(Sys)$(Dev)Time:Step7-RB") 
+	field(CALC, "A%60")
+	field(OUT,  "$(Sys)$(Dev)Time:Step7MM-RB PP")  
+}
+
+record(longin, "$(Sys)$(Dev)Time:Step7MM-RB") 
+{
+	field(DESC, "Step7 MM")
+	field(EGU,  "Minute")
+	field(HOPR, "60")
+	field(LOPR, "0")
+}
+
+# Set/Get control setting
+record(bo, "$(Sys)$(Dev)Cmd:Ctrl-Cmd") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set Run/Stop")
+	field(OUT,  "@cn7500.proto write_bit($(HEXADR),0814) $(PORT)")
+	field(FLNK, "$(Sys)$(Dev)Sts:Ctrl-Sts")
+	field(DISV, "0")
+	field(SDIS, "$(Sys)$(Dev)Cmd:Use-Cmd")
+	field(ZNAM, "STOP")
+	field(ONAM, "RUN")
+	field(ASG,  "VAWRITE")
+	field(VAL,  "0")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:Ctrl-Sts") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Run/Stop Status")
+	field(INP,  "@cn7500.proto read_bit($(HEXADR),0814) $(PORT)")
+	field(ZNAM, "STOP")
+	field(ONAM, "RUN")
+}
+
+# Pause/Continue setting
+record(bo, "$(Sys)$(Dev)Cmd:PID-Cmd") 
+{
+	field(DTYP, "stream")
+	field(DESC, "Set PID Run/Stop")
+	field(OUT,  "@cn7500.proto write_bit($(HEXADR),0816) $(PORT)")
+	field(SDIS, "$(Sys)$(Dev)Sts:Ctrl-Sts") 
+	field(DISV, "1")
+	field(FLNK, "$(Sys)$(Dev)Sts:PID-Sts")
+	field(ZNAM, "Continue")
+	field(ONAM, "Pause")
+	field(ASG,  "VAWRITE")
+}
+
+record(bi, "$(Sys)$(Dev)Sts:PID-Sts") 
+{
+	field(DTYP, "stream")
+	field(DESC, "PID Control Status")
+	field(INP,  "@cn7500.proto read_bit($(HEXADR),0816) $(PORT)")
+	field(ZNAM, "Continue")
+	field(ONAM, "Pause")
+}
+
+# Download data to controller
+record(fanout, "$(Sys)$(Dev)DB:Dwnld-FOut_")
+{
+	field(LNK1, "$(Sys)$(Dev)DB:Dwnld-Seq1_")
+	field(LNK2, "$(Sys)$(Dev)DB:Dwnld-Seq2_")
+	field(LNK3, "$(Sys)$(Dev)DB:Dwnld-Seq3_")
+}
+
+record(seq, "$(Sys)$(Dev)DB:Dwnld-Seq1_")
+{
+	field(DESC, "Seqence1")
+	field(SELM, "All")
+	field(DOL1, "$(P){}T:Step0-SP PP")
+	field(DOL2, "$(P){}T:Step1-SP PP")
+	field(DOL3, "$(P){}T:Step2-SP PP")
+	field(DOL4, "$(P){}T:Step3-SP PP")
+	field(DOL5, "$(P){}T:Step4-SP PP")
+	field(DOL6, "$(P){}T:Step5-SP PP")
+	field(DOL7, "$(P){}T:Step6-SP PP")
+	field(DOL8, "$(P){}T:Step7-SP PP")
+	field(DOL9, "$(P){}T-SP PP")
+	field(LNK1, "$(Sys)$(Dev)T:Step0-SP PP")
+	field(LNK2, "$(Sys)$(Dev)T:Step1-SP PP")
+	field(LNK3, "$(Sys)$(Dev)T:Step2-SP PP")
+	field(LNK4, "$(Sys)$(Dev)T:Step3-SP PP")
+	field(LNK5, "$(Sys)$(Dev)T:Step4-SP PP")
+	field(LNK6, "$(Sys)$(Dev)T:Step5-SP PP")
+	field(LNK7, "$(Sys)$(Dev)T:Step6-SP PP")
+	field(LNK8, "$(Sys)$(Dev)T:Step7-SP PP")
+	field(LNK9, "$(Sys)$(Dev)T-SP PP")
+	field(DLY5, "1")
+	field(DLY6, "1")
+	field(DLY7, "1")
+	field(DLY8, "1")
+	field(DLY9, "1")
+}
+
+record(seq, "$(Sys)$(Dev)DB:Dwnld-Seq2_")
+{
+	field(DESC, "Seqence2")
+	field(SELM, "All")
+	field(DOL1, "$(P){}Time:Step0-SP PP")
+	field(DOL2, "$(P){}Time:Step1-SP PP")
+	field(DOL3, "$(P){}Time:Step2-SP PP")
+	field(DOL4, "$(P){}Time:Step3-SP PP")
+	field(DOL5, "$(P){}Time:Step4-SP PP")
+	field(DOL6, "$(P){}Time:Step5-SP PP")
+	field(DOL7, "$(P){}Time:Step6-SP PP")
+	field(DOL8, "$(P){}Time:Step7-SP PP")
+	field(LNK1, "$(Sys)$(Dev)Time:Step0-SP PP")
+	field(LNK2, "$(Sys)$(Dev)Time:Step1-SP PP")
+	field(LNK3, "$(Sys)$(Dev)Time:Step2-SP PP")
+	field(LNK4, "$(Sys)$(Dev)Time:Step3-SP PP")
+	field(LNK5, "$(Sys)$(Dev)Time:Step4-SP PP")
+	field(LNK6, "$(Sys)$(Dev)Time:Step5-SP PP")
+	field(LNK7, "$(Sys)$(Dev)Time:Step6-SP PP")
+	field(LNK8, "$(Sys)$(Dev)Time:Step7-SP PP")
+	field(DLY1, "2")
+	field(DLY2, "2")
+	field(DLY3, "2")
+	field(DLY4, "2")
+	field(DLY5, "3")
+	field(DLY6, "3")
+	field(DLY7, "3")
+}
+
+record(seq, "$(Sys)$(Dev)DB:Dwnld-Seq3_")
+{
+	field(DESC, "Seqence3")
+	field(SELM, "All")
+	field(DOL1, "$(P){}T:Alrm1Hi-SP PP")
+	field(DOL2, "$(P){}T:Alrm1Lo-SP PP")
+	field(DOL3, "$(P){}T:Hi-SP PP")
+	field(DOL4, "$(P){}T:Lo-SP PP")
+	field(DOL5, "$(P){}Type:Alrm1-Sel PP")
+	field(DOL6, "$(P){}Cmd:SysAlrm-Sel PP")
+	field(DOL7, "$(P){}Mode:Ctrl-Sel PP")
+	field(DOL8, "$(P){}Mode:HC_Ctrl-Sel PP")
+	field(LNK1, "$(Sys)$(Dev)T:Alrm1Hi-SP PP")
+	field(LNK2, "$(Sys)$(Dev)T:Alrm1Lo-SP PP")
+	field(LNK3, "$(Sys)$(Dev)T:Hi-SP PP")
+	field(LNK4, "$(Sys)$(Dev)T:Lo-SP PP")
+	field(LNK5, "$(Sys)$(Dev)Type:Alrm1-Sel PP")
+	field(LNK6, "$(Sys)$(Dev)Cmd:SysAlrm-Sel PP")
+	field(LNK7, "$(Sys)$(Dev)Mode:Ctrl-Sel PP")
+	field(LNK8, "$(Sys)$(Dev)Mode:HC_Ctrl-Sel PP")
+	field(DLY3, "1")
+	field(DLY4, "1")
+	field(DLY5, "2")
+	field(DLY6, "2")
+	field(DLY7, "3")
+	field(DLY8, "3")
+	field(DLY1, "4")
+	field(DLY2, "4")
+	field(DLY3, "4")
+	field(DLY4, "4")
+	field(DLY5, "5")
+	field(DLY6, "5")
+	field(DLY7, "5")
+}
+
+# Download settings to controller
+record(bo, "$(Sys)$(Dev)DB:Dwnld-Cmd")
+{
+	field(DESC, "Download to $(Dev)")
+	field(FLNK, "$(Sys)$(Dev)DB:Dwnld-FOut_")
+	field(DISV, "0")
+	field(SDIS, "$(Sys)$(Dev)Cmd:Use-Cmd")
+	field(ASG,  "VAWRITE")
+}

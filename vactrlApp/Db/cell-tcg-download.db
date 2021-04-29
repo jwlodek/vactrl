@@ -1,0 +1,18 @@
+## Database for LTB TCG Parameter download
+record(bo, "$(Sys){}DB:TCG_Dwnld-Cmd")
+{
+        field(DESC, "CCG Download")
+        field(FLNK, "$(Sys){}DB:TCG_Dwnld-Seq_")
+        field(ASG,  "VAWRITE")
+}
+
+record(seq, "$(Sys){}DB:TCG_Dwnld-Seq_")
+{
+        field(DESC, "CCG Seq")
+        field(SELM, "All")
+        field(DO1, "1")
+        field(DO2, "1")
+        field(LNK1, "$(Sys):G1{TCG:1}DB:Dwnld-Cmd PP")
+	field(LNK2, "$(Sys):G5{TCG:1}DB:Dwnld-Cmd PP")
+}
+

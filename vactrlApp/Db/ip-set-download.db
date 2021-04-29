@@ -1,0 +1,157 @@
+## Database for Varian Dual Ion pump
+## Mar 23, 2011, BNL
+
+## Substitutions
+## Sys          -       System
+## Dev          -       Device name
+## Cntl         -       Pump controller name
+## CHAN         -       Ion pump channel
+## PORT         -       IP or Serial port name
+
+record(longout, "$(Sys){}DB:IP_E_Max-SP")
+{
+        field(DESC, "Max Volt")
+        field(EGU,  "V")
+        field(ASG,  "VAWRITE")
+        field(HOPR, "7000")
+        field(LOPR, "3000")
+        field(VAL,  "5000")
+}
+
+record(longout, "$(Sys){}DB:IP_I_Max-SP")
+{
+        field(DESC, "Max Current")
+        field(EGU,  "mA")
+        field(ASG,  "VAWRITE")
+        field(HOPR, "400")
+        field(LOPR, "10")
+}
+
+record(ao, "$(Sys){}DB:IP_P_100nA-SP")
+{
+        field(DESC, "Pr@5000V I=100nA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+}
+
+record(ao, "$(Sys){}DB:IP_P_10uA-SP")
+{
+        field(DESC, "Pr@5000V I=10uA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+}
+
+record(ao, "$(Sys){}DB:IP_P_10mA-SP")
+{
+        field(DESC, "Pr@5000V I=10mA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "9.9E-4")
+}
+
+record(ao, "$(Sys){}DB:IP_P_400mA-SP")
+{
+        field(DESC, "Pr@5000V I=400mA Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-6")
+        field(HOPR, "9.9E2")
+}
+
+record(ao, "$(Sys){}DB:IP_P_SP1-SP")
+{
+        field(DESC, "SP1 SP")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-8")
+        field(HOPR, "1.0E-5")
+	field(FLNK, "$(Sys){}DB:IP_P_Warn-SP")
+}
+
+record(calc, "$(Sys){}DB:IP_P_Warn-SP")
+{
+	field(DESC, "Warn P Calc")
+	field(INPA, "$(Sys){}DB:IP_P_SP1-SP")
+	field(INPB, "0.2")
+	field(CALC, "A*B")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(ao, "$(Sys){}DB:IP_P_SP2-SP")
+{
+        field(DESC, "SP2 SP")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "Torr")
+        field(PREC, "1")
+        field(LOPR, "1.0E-9")
+        field(HOPR, "1.0E-4")
+}
+
+record(bo, "$(Sys){}DB:Dwnld-Cmd")
+{
+        field(DESC, "Use Sel")
+        field(FLNK, "$(Sys){}DB:Dwnld-FOut_")
+        field(ASG,  "VAWRITE")
+}
+
+record(fanout, "$(Sys){}DB:Dwnld-FOut_")
+{
+	field(LNK1, "$(Sys){}DB:Dwnld-Seq1_")
+	field(LNK2, "$(Sys){}DB:Dwnld-Seq2_")
+#	field(LNK3, "$(Sys){}DB:Dwnld-Seq3_")
+}
+
+record(seq, "$(Sys){}DB:Dwnld-Seq1_")
+{
+	field(DESC, "Seqence1")
+	field(SELM, "All")
+	field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(DO4, "1")
+	field(DO5, "1")
+	field(DO6, "1")
+	field(DO7, "1")
+	field(DO8, "1")
+	field(DO9, "1")
+	field(DOA, "1")
+	field(LNK1, "$(Sys){IP:01}DB:Dwnld-Cmd PP")
+	field(LNK2, "$(Sys){IP:02}DB:Dwnld-Cmd PP")
+	field(LNK3, "$(Sys){IP:03}DB:Dwnld-Cmd PP")
+	field(LNK4, "$(Sys){IP:04}DB:Dwnld-Cmd PP")
+	field(LNK5, "$(Sys){IP:05}DB:Dwnld-Cmd PP")
+	field(LNK6, "$(Sys){IP:06}DB:Dwnld-Cmd PP")
+        field(LNK7, "$(Sys){IP:07}DB:Dwnld-Cmd PP")
+        field(LNK8, "$(Sys){IP:08}DB:Dwnld-Cmd PP")
+        field(LNK9, "$(Sys){IP:09}DB:Dwnld-Cmd PP")
+        field(LNKA, "$(Sys){IP:10}DB:Dwnld-Cmd PP")
+}
+
+record(seq, "$(Sys){}DB:Dwnld-Seq2_")
+{
+        field(DESC, "Seqence1")
+        field(SELM, "All")
+        field(DO1, "1")
+        field(DO2, "1")
+#        field(DO3, "1")
+#        field(DO4, "1")
+#        field(DO5, "1")
+#        field(DO6, "1")
+        field(LNK1, "$(Sys){IP:11}DB:Dwnld-Cmd PP")
+        field(LNK2, "$(Sys){IP:12}DB:Dwnld-Cmd PP")
+#       field(LNK3, "$(Sys){IP:1WG}DB:Dwnld-Cmd PP")
+#        field(LNK4, "$(Sys){IP:2WG}DB:Dwnld-Cmd PP")
+#        field(LNK5, "$(Sys){IP:3WG}DB:Dwnld-Cmd PP")
+#        field(LNK6, "$(Sys){IP:4WG}DB:Dwnld-Cmd PP")
+}
+

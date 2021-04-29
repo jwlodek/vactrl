@@ -1,0 +1,29 @@
+# Substitution file
+file bc12_download.template
+{
+	pattern { Sys		, Cntl 		}
+  		{ XF23ID-VA:BC1	, "{BC:1}"	}
+}
+
+file cn7500_controller.template
+{
+	pattern { Sys		, Dev		, HEXADR, PORT		, P	}
+  		{ XF23ID-VA:BC1 , "{TC:01}"	, 01	, XF23ID_BC1	, XF23ID-VA }
+  		{ XF23ID-VA:BC1	, "{TC:02}"	, 02	, XF23ID_BC1	, XF23ID-VA }
+  		{ XF23ID-VA:BC1	, "{TC:03}"	, 03	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:04}"	, 04	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:05}"	, 05	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:06}"	, 06	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:07}"	, 07	, XF23ID_BC1	, XF23ID-VA }	
+		{ XF23ID-VA:BC1	, "{TC:08}"	, 08	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:09}"	, 09	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:10}"	, 0A	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:11}"	, 0B	, XF23ID_BC1	, XF23ID-VA }
+		{ XF23ID-VA:BC1	, "{TC:12}"	, 0C	, XF23ID_BC1	, XF23ID-VA }
+}
+
+file cn7500_set.template
+{
+	pattern { P		}
+  		{ XF23ID-VA	}
+}

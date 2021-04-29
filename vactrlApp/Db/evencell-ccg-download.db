@@ -1,0 +1,22 @@
+## Database for LTB CCG Parameter download
+record(bo, "$(Sys){}DB:CCG_Dwnld-Cmd")
+{
+        field(DESC, "CCG Download")
+        field(FLNK, "$(Sys){}DB:CCG_Dwnld-Seq_")
+        field(ASG,  "VAWRITE")
+}
+
+record(seq, "$(Sys){}DB:CCG_Dwnld-Seq_")
+{
+        field(DESC, "CCG Seq")
+        field(SELM, "All")
+        field(DO1, "1")
+        field(DO2, "1")
+	field(DO3, "1")
+	field(DO4, "1")
+        field(LNK1, "$(Sys):G1{CCG:1}DB:Dwnld-Cmd PP")
+	field(LNK2, "$(Sys):G1{CCG:2}DB:Dwnld-Cmd PP")
+	field(LNK3, "$(Sys):G3{CCG:1}DB:Dwnld-Cmd PP")
+        field(LNK4, "$(Sys):G5{CCG:1}DB:Dwnld-Cmd PP")
+}
+

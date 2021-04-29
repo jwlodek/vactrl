@@ -1,0 +1,107 @@
+## Database for RTD SP
+## nOV 21, 2013, BNL
+
+record(ao, "$(Sys){}DB:T-SP")
+{
+        field(DESC, "RTD SP Set")
+        field(ASG,  "VAWRITE")
+        field(EGU,  "C")
+        field(PREC, "1")
+        field(DRVH, "120")
+	info(autosaveFields_pass0, "VAL")
+	field(FLNK, "$(Sys){}DB:T-Calc_")
+}
+
+record(calc, "$(Sys){}DB:T-Calc_")
+{
+        field(DESC, "T Warning Calc")
+        field(INPA, "$(Sys){}DB:T-SP NPP")
+	field(CALC, "A*0.1")
+	field(FLNK, "$(Sys){}DB:T_Dwnld100-Seq_")
+}
+
+
+record(seq, "$(Sys){}DB:IP_Dwnld100-Seq_")
+{
+	field(DESC, "100L/s Seq")
+	field(SELM, "All")
+	field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(DO4, "1")
+	field(DO5, "1")
+	field(LNK1, "$(Sys):G1{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK2, "$(Sys):G2{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK3, "$(Sys):G4{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK4, "$(Sys):G4{IP:2}DB:Dwnld-Cmd PP")
+	field(DLY4, "35")
+}
+
+record(bo, "$(Sys){}DB:IP_Dwnld200-Cmd")
+{
+        field(DESC, "200L/s IP Download")
+        field(FLNK, "$(Sys){}DB:IP_Dwnld200-Seq_")
+	field(SDIS, "$(Sys){}DB:IP_Type-Sel")
+        field(DISV, "0")
+        field(ASG,  "VAWRITE")
+	info(autosaveFields_pass0, "VAL")
+}
+
+record(seq, "$(Sys){}DB:IP_Dwnld200-Seq_")
+{
+        field(DESC, "200L/s Seq")
+        field(SELM, "All")
+        field(DO1,  "1")
+        field(DO2,  "1")
+	field(DO3,  "1")
+        field(LNK1, "$(Sys):G3{IP:1}DB:Dwnld-Cmd PP")
+        field(LNK2, "$(Sys):G5{IP:1}DB:Dwnld-Cmd PP")
+	field(LNK3, "$(Sys):G6{IP:1}DB:Dwnld-Cmd PP")
+	field(DLY3, "35")
+}
+
+# Turn HV on after interlock
+record(bo, "$(Sys){}DB:IP_IntlkClr-Cmd")
+{
+        field(DESC, "IP Intlk Clear")
+        field(FLNK, "$(Sys){}DB:IP_IntlkClr-FOut_")
+        field(ASG,  "VAWRITE")
+        info(autosaveFields_pass0, "VAL")
+}
+
+record(fanout, "$(Sys){}DB:IP_IntlkClr-FOut_")
+{
+	field(LNK1, "$(Sys){}DB:IP_IntlkClr-Seq1_")
+	field(LNK2, "$(Sys){}DB:IP_IntlkClr-Seq2_")
+}
+
+record(seq, "$(Sys){}DB:IP_IntlkClr-Seq1_")
+{
+	field(DESC, "IP Intlk Clr Seq1")
+	field(SDIS, "$(Sys):G1{TCG:1}Sts:Rly1PLC-Sts")
+	field(DISV, "0")
+	field(SELM, "All")
+	field(DO1, "1")
+	field(LNK1, "$(Sys):G1{IP:1}Cmd:HV_On-Cmd PP")
+}
+
+record(seq, "$(Sys){}DB:IP_IntlkClr-Seq2_")
+{
+        field(DESC, "C17 IP Intlk Clr Seq2")
+	field(SDIS, "$(Sys):G5{TCG:1}Sts:Rly1PLC-Sts")
+        field(DISV, "0")
+        field(SELM, "All")
+        field(DO1, "1")
+	field(DO2, "1")
+	field(DO3, "1")
+	field(DO4, "1")
+	field(DO5, "1")
+	field(DO6, "1")
+        field(LNK1, "$(Sys):G2{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK2, "$(Sys):G3{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK3, "$(Sys):G4{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK4, "$(Sys):G4{IP:2}Cmd:HV_On-Cmd PP")
+	field(LNK5, "$(Sys):G5{IP:1}Cmd:HV_On-Cmd PP")
+	field(LNK6, "$(Sys):G6{IP:1}Cmd:HV_On-Cmd PP")
+}
+

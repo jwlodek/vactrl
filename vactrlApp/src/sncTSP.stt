@@ -1,0 +1,59 @@
+program sncTSP
+
+int subl_cmd;
+assign subl_cmd to "{Sys}{Dev}DB:TSP_StartStop-Cmd";
+monitor subl_cmd;
+
+int subl_perd;
+assign subl_perd to "{Sys}{Dev}DB:TSP_SublPerd-Sel";
+
+long delay_time;
+option +r;
+
+ss tspSubl
+{
+        state sublInit
+        {
+                when ()
+                {
+                        pvGet(subl_perd);
+                        if(subl_perd == 0)
+                                delay_time = 3*60;
+                        else if(subl_perd ==1 )
+                                delay_time = 10*60;
+                        else if(subl_perd ==2 )
+                                delay_time = 30*60;
+                        else if(subl_perd ==3 )
+                                delay_time = 1*60*60;
+                        else if(subl_perd ==4 )
+                                delay_time = 2*60*60;
+                        else if(subl_perd ==5 )
+                                delay_time = 4*60*60;
+                        else if(subl_perd ==6 )
+                                delay_time = 8*60*60;
+                        else if(subl_perd ==7 )
+                                delay_time = 32*60*60;
+                } state sublStart
+        }
+
+        state sublStart
+        {
+                when (subl_cmd && delay(delay_time))
+                {
+                } state sublStop
+                when (!subl_cmd)
+                {
+                } state sublInit
+        }
+
+        state sublStop
+        {
+                when (subl_cmd)
+                {
+                        subl_cmd = 0;
+                        pvPut(subl_cmd);
+/*                      printf("sublStop Stop\n");*/
+                } state sublInit
+        }
+}
+

@@ -1,0 +1,370 @@
+## Template for Front End A Allen Bradley PLC 
+
+## Substitutions:
+## Sys		-	System
+## PLC		-	PLC name
+
+# GV1 error signal
+record(bi, "$(Sys){GV:1}Err-Sts")
+{
+        field(DESC, "GV1 Err")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[0] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 failed to open signal
+record(bi, "$(Sys){GV:1}Sts:FailOpn-Sts")
+{
+        field(DESC, "GV1 Fail Open")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[2] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 failed to closedopen signal
+record(bi, "$(Sys){GV:1}Sts:FailCls-Sts")
+{
+        field(DESC, "GV1 Fail Close")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[3] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# GV1 status signal
+record(bi, "$(Sys){GV:1}Pos-Sts")
+{
+        field(DESC, "GV1 Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[6] S 0.5")
+        field(ZNAM, "Closed")
+        field(ONAM, "Open")
+        field(ZSV,  "MINOR")
+}
+
+# GV1 open limit switch status signal
+record(bi, "$(Sys){GV:1}Sw:OpnLim-Sts")
+{
+        field(DESC, "GV1 Open Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[8] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV1 close limit switch status signal
+record(bi, "$(Sys){GV:1}Sw:ClsLim-Sts")
+{
+        field(DESC, "GV1 Close Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[9] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# GV1 24V to coil signal
+record(bi, "$(Sys){GV:1}Sts:Coil-Sts")
+{
+        field(DESC, "GV1 Coil")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[12] S 0.5")
+        field(ZNAM, "Coil Low")
+        field(ONAM, "Coil High")
+}
+
+# TCG1 signal
+record(bi, "$(Sys){TCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "TCG1 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[14] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# TCG2 signal
+record(bi, "$(Sys){TCG:2}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "TCG2 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[15] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# CCG1 signal
+record(bi, "$(Sys){CCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "CCG1 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[16] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# CCG2 signal
+record(bi, "$(Sys){CCG:2}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "CCG4 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[17] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# IP1 signal
+record(bi, "$(Sys){IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "IP1 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[21] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# IP2 signal
+record(bi, "$(Sys){IP:2}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "IP2 Relay")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[22] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# SR PLC signal
+record(bi, "$(Sys)$(Dev)Sts:IntlkFromSR-Sts")
+{
+        field(DESC, "SR Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[28] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA EPS1 interlock signal
+record(bi, "$(Sys)$(Dev)Sts:IntlkFromEPS_GV1-Sts")
+{
+        field(DESC, "EPS Interlock GV1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[29] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# BL interlock signal
+record(bi, "$(Sys)$(Dev)Sts:IntlkFromBL-Sts")
+{
+        field(DESC, "BL Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[31] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FE interlock signal to SR PLC
+record(bi, "$(Sys)$(Dev)Sts:IntlkToSR-Sts")
+{
+        field(DESC, "To SR PLC Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[0] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FE interlock signal to BL PLC
+record(bi, "$(Sys)$(Dev)Sts:IntlkToBL-Sts")
+{
+        field(DESC, "To BL PLC Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[2] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# TCG1 to IP1
+record(bi, "$(Sys){TCG:1}Sts:Rly2IP1-Sts")
+{
+        field(DESC, "TCG1 Interlock IP1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[3] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+        field(ZSV,  "MINOR")
+}
+
+# TCG2 to IP2
+record(bi, "$(Sys){TCG:2}Sts:Rly2IP2-Sts")
+{
+        field(DESC, "TCG2 Interlock IP2")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[4] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+        field(ZSV,  "MINOR")
+}
+
+# Ethernet link status
+record(bi, "$(Sys)$(Dev)Sts:LAN-Sts")
+{
+        field(DESC, "Ethernet Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[11] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# CPU status signal
+record(bi, "$(Sys)$(Dev)Sts:CPU-Sts")
+{
+        field(DESC, "CPU Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[12] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# IO module status signal
+record(bi, "$(Sys)$(Dev)Sts:IO-Sts")
+{
+        field(DESC, "IO Module Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[13] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# IP1 HV Status
+record(bi, "$(Sys){IP:1}Sts:HV_PLC-Sts")
+{
+        field(DESC, "IP1 HV Sts")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[21] S 0.5")
+        field(ZNAM, "HV Off")
+        field(ONAM, "HV On")
+	field(ZSV,  "MINOR")
+}
+
+# IP2 HV Status 
+record(bi, "$(Sys){IP:2}Sts:HV_PLC-Sts")
+{
+        field(DESC, "IP2 HV Sts")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[22] S 0.5")
+        field(ZNAM, "HV Off")
+        field(ONAM, "HV On")
+        field(ZSV,  "MINOR")
+}
+
+# GV1 DS interlock signal
+record(bi, "$(Sys){GV:1}Sts:DS_Intlk-Sts")
+{
+        field(DESC, "GV1 DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[28] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV1 US interlock signal
+record(bi, "$(Sys){GV:1}Sts:US_Intlk-Sts")
+{
+        field(DESC, "GV1 US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[30] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# GV1 open/close command
+record(bo, "$(Sys){GV:1}Cmd:Opn-Cmd")
+{
+        field(DESC, "GV1 Open Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[0] S 0.5")
+        field(ZNAM, "Not Open")
+        field(ONAM, "Open")
+}
+
+record(bo, "$(Sys){GV:1}Cmd:Cls-Cmd")
+{
+        field(DESC, "GV1 Close Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[1] S 0.5")
+        field(ZNAM, "Not Close")
+        field(ONAM, "Close")
+}
+
+# GV1 Status calc
+record(calc, "$(Sys){GV:1}DB:Pos-Calc_")
+{
+        field(DESC, "GV1 Calc")
+        field(SCAN, ".5 second")
+        field(INPA, "$(Sys){GV:1}Err-Sts NPP MS")
+        field(INPB, "$(Sys){GV:1}Pos-Sts NPP MS")
+
+        field(CALC, "A?2:B?1:0")
+        field(FLNK, "$(Sys){GV:1}DB:Pos-Sts")
+}
+
+record(mbbi, "$(Sys){GV:1}DB:Pos-Sts")
+{
+        field(DESC, "GV1 Sts")
+        field(INP,  "$(Sys){GV:1}DB:Pos-Calc_ NPP MS")
+        field(ZRST, "Closed")
+        field(ONST, "Open")
+        field(TWST, "Error")
+        field(ZRSV, "MINOR")
+        field(TWSV, "MAJOR")
+}

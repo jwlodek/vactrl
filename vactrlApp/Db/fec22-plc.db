@@ -1,0 +1,496 @@
+## Template for Allen Bradley PLC digital input
+
+## Substitutions:
+## Sys		-	System
+## PLC		-	PLC name
+
+# FEA GV1 error signal
+record(bi, "FE:C22A-VA{GV:1}Err-Sts")
+{
+        field(DESC, "FEA GV1 Err")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[0] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEB GV1 error signal
+record(bi, "FE:C22B-VA{GV:1}Err-Sts")
+{
+        field(DESC, "FEB GV1 Err")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[1] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEA GV1 failed to open signal
+record(bi, "FE:C22A-VA{GV:1}Sts:FailOpn-Sts")
+{
+        field(DESC, "FEA GV1 Fail Open")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[2] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEA GV1 failed to closedopen signal
+record(bi, "FE:C22A-VA{GV:1}Sts:FailCls-Sts")
+{
+        field(DESC, "FEA GV1 Fail Close")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[3] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEB GV1 failed to open signal
+record(bi, "FE:C22B-VA{GV:1}Sts:FailOpn-Sts")
+{
+        field(DESC, "FEB GV1 Fail Open")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[4] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEB GV1 failed to closedopen signal
+record(bi, "FE:C22B-VA{GV:1}Sts:FailCls-Sts")
+{
+        field(DESC, "FEB GV1 Fail Close")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[5] S 0.5")
+        field(ZNAM, "OK")
+        field(ONAM, "ERROR")
+        field(OSV,  "MAJOR")
+}
+
+# FEA GV1 status signal
+record(bi, "FE:C22A-VA{GV:1}Pos-Sts")
+{
+        field(DESC, "FEA GV1 Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[6] S 0.5")
+        field(ZNAM, "Closed")
+        field(ONAM, "Open")
+        field(ZSV,  "MINOR")
+}
+
+# FEB GV1 status signal        
+record(bi, "FE:C22B-VA{GV:1}Pos-Sts")
+{
+        field(DESC, "FEB GV1 Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[7] S 0.5")
+        field(ZNAM, "Closed")
+        field(ONAM, "Open")
+        field(ZSV,  "MINOR")
+}
+
+# FEA GV1 open limit switch status signal
+record(bi, "FE:C22A-VA{GV:1}Sw:OpnLim-Sts")
+{
+        field(DESC, "FEA GV1 Open Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[8] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# FEA GV1 close limit switch status signal
+record(bi, "FE:C22A-VA{GV:1}Sw:ClsLim-Sts")
+{
+        field(DESC, "FEA GV1 Close Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[9] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# FEB GV1 open limit switch status signal
+record(bi, "FE:C22B-VA{GV:1}Sw:OpnLim-Sts")
+{
+        field(DESC, "FEB GV1 Open Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[10] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# FEB GV1 close limit switch status signal
+record(bi, "FE:C22B-VA{GV:1}Sw:ClsLim-Sts")
+{
+        field(DESC, "FEB GV1 Close Sw")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[11] S 0.5")
+        field(ZNAM, "SW Low")
+        field(ONAM, "SW High")
+}
+
+# FEA GV1 24V to coil signal
+record(bi, "FE:C22A-VA{GV:1}Sts:Coil-Sts")
+{
+        field(DESC, "FEA GV1 Coil")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[12] S 0.5")
+        field(ZNAM, "Coil Low")
+        field(ONAM, "Coil High")
+}
+
+# FEB GV1 24V to coil signal 
+record(bi, "FE:C22B-VA{GV:1}Sts:Coil-Sts")
+{
+        field(DESC, "FEB GV1 Coil")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[13] S 0.5")
+        field(ZNAM, "Coil Low")
+        field(ONAM, "Coil High")
+}
+
+# FEA TCG1 signal
+record(bi, "FE:C22A-VA{TCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "FEA TCG1 Relay1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[14] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEB TCG1 signal
+record(bi, "FE:C22B-VA{TCG:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "FEB TCG1 Relay1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[15] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEA IP1 signal
+record(bi, "FE:C22A-VA{IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "FEA IP1 Relay1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[20] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEB IP1 signal
+record(bi, "FE:C22B-VA{IP:1}Sts:Rly1PLC-Sts")
+{
+        field(DESC, "FEB IP1 Relay1")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[21] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEA IP1 HV signal
+record(bi, "FE:C22A-VA{IP:1}Sts:HV_PLC-Sts")
+{
+        field(DESC, "FEA IP1 HV")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[22] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEB IP1 HV signal
+record(bi, "FE:C22B-VA{IP:1}Sts:HV_PLC-Sts")
+{
+        field(DESC, "FEB IP1 HV")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[23] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# SR VA interlock signal to FEA
+record(bi, "FE:C22A-VA{PLC}Sts:IntlkFromSR-Sts")
+{
+        field(DESC, "SR Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[28] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR") 
+}
+
+# SR VA interlock signal to FEB
+record(bi, "FE:C22B-VA{PLC}Sts:IntlkFromSR-Sts")
+{
+        field(DESC, "SR Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[29] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA GV1 US interlock signal
+record(bi, "FE:C22A-VA{GV:1}Sts:US_Intlk-Sts")
+{
+        field(DESC, "FEA GV1 US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[30] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEB GV1 US interlock signal
+record(bi, "FE:C22B-VA{GV:1}Sts:US_Intlk-Sts")
+{
+        field(DESC, "FEB GV1 US Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL1_EPICS[31] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA interlock signal to SR
+record(bi, "FE:C22A-VA{PLC}Sts:IntlkToSR-Sts")
+{
+        field(DESC, "FEA Interlock to SR")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[4] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEB interlock signal to SR
+record(bi, "FE:C22B-VA{PLC}Sts:IntlkToSR-Sts")
+{
+        field(DESC, "FEB Interlock to SR")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[5] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA TCG to IP
+record(bi, "FE:C22A-VA{TCG:1}Sts:Rly2PLC-Sts")
+{
+        field(DESC, "FEA TCG1 Relay2")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[6] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# FEB TCG to IP 
+record(bi, "FE:C22B-VA{TCG:1}Sts:Rly2PLC-Sts")
+{
+        field(DESC, "FEB TCG1 Relay2")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[7] S 0.5")
+        field(ZNAM, "Relay Off")
+        field(ONAM, "Relay On")
+	field(ZSV,  "MINOR")
+}
+
+# Interlock signal to EPS
+record(bi, "$(Sys){PLC}Sts:IntlkToEPS-Sts")
+{
+        field(DESC, "Interlock to EPS")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[8] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# Ethernet link status signal
+record(bi, "$(Sys){PLC}Sts:LAN-Sts")
+{
+        field(DESC, "Ethernet Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[11] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# CPU status signal       
+record(bi, "$(Sys){PLC}Sts:CPU-Sts")
+{
+        field(DESC, "CPU Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[12] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# IO module status signal       
+record(bi, "$(Sys){PLC}Sts:IO-Sts")
+{
+        field(DESC, "IO Module Status")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[13] S 0.5")
+        field(ZNAM, "Off")
+        field(ONAM, "On")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA GV1 DS interlock signal
+record(bi, "FE:C22A-VA{GV:1}Sts:DS_Intlk-Sts")
+{
+        field(DESC, "FEA GV1 DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[30] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEB GV1 DS interlock signal
+record(bi, "FE:C22B-VA{GV:1}Sts:DS_Intlk-Sts")
+{
+        field(DESC, "FEB GV1 DS Interlock")
+        field(SCAN, "I/O Intr")
+        field(DTYP, "EtherIP")
+        field(INP, "@$(PLC) IL2_EPICS[31] S 0.5")
+        field(ZNAM, "Interlock On")
+        field(ONAM, "Interlock Off")
+        field(ZSV,  "MAJOR")
+}
+
+# FEA GV1 open/close command
+record(bo, "FE:C22A-VA{GV:1}Cmd:Opn-Cmd")
+{
+        field(DESC, "FEA GV1 Open Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[0] S 0.5")
+        field(ZNAM, "Not Open")
+        field(ONAM, "Open")
+}
+
+record(bo, "FE:C22A-VA{GV:1}Cmd:Cls-Cmd")
+{
+        field(DESC, "FEA GV1 Close Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[1] S 0.5")
+        field(ZNAM, "Not Close")
+        field(ONAM, "Close")
+}
+
+# FEB GV1 open/close command
+record(bo, "FE:C22B-VA{GV:1}Cmd:Opn-Cmd")
+{
+        field(DESC, "FEB GV1 Open Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[2] S 0.5")
+        field(ZNAM, "Not Open")
+        field(ONAM, "Open")
+}
+
+record(bo, "FE:C22B-VA{GV:1}Cmd:Cls-Cmd")
+{
+        field(DESC, "FEB GV1 Close Cmd")
+        field(SCAN, "Passive")
+        field(DTYP, "EtherIP")
+        field(OUT,  "@$(PLC) EPICS_GV_CTR[3] S 0.5")
+        field(ZNAM, "Not Close")
+        field(ONAM, "Close")
+}
+
+# FEA GV1 Status calc
+record(calc, "FE:C22A-VA{GV:1}DB:Pos-Calc_")
+{
+        field(DESC, "FEA GV1 Calc")
+        field(SCAN, ".5 second")
+        field(INPA, "FE:C22A-VA{GV:1}Err-Sts NPP MS")
+        field(INPB, "FE:C22A-VA{GV:1}Pos-Sts NPP MS")
+
+        field(CALC, "A?2:B?1:0")
+        field(FLNK, "FE:C22A-VA{GV:1}DB:Pos-Sts")
+}
+
+record(mbbi, "FE:C22A-VA{GV:1}DB:Pos-Sts")
+{
+        field(DESC, "FEA GV1 Sts")
+        field(INP,  "FE:C22A-VA{GV:1}DB:Pos-Calc_ NPP MS")
+        field(ZRST, "Closed")
+        field(ONST, "Open")
+        field(TWST, "Error")
+        field(ZRSV, "MINOR")
+        field(TWSV, "MAJOR")
+}
+
+# FEB GV1 status calc
+record(calc, "FE:C22B-VA{GV:1}DB:Pos-Calc_")
+{
+        field(DESC, "FEB GV1 Calc")
+        field(SCAN, ".5 second")
+        field(INPA, "FE:C22B-VA{GV:1}Err-Sts NPP MS")
+        field(INPB, "FE:C22B-VA{GV:1}Pos-Sts NPP MS")
+
+        field(CALC, "A?2:B?1:0")
+        field(FLNK, "FE:C22B-VA{GV:1}DB:Pos-Sts")
+}
+
+record(mbbi, "FE:C22B-VA{GV:1}DB:Pos-Sts")
+{
+        field(DESC, "FEB GV1 Sts")
+        field(INP,  "FE:C22B-VA{GV:1}DB:Pos-Calc_ NPP MS")
+        field(ZRST, "Closed")
+        field(ONST, "Open")
+        field(TWST, "Error")
+        field(ZRSV, "MINOR")
+        field(TWSV, "MAJOR")
+}
+

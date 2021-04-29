@@ -1,0 +1,37 @@
+file mks937b_controller.template
+{
+	pattern { Sys		, Cntl		, PORT		, ADR	}
+		{ XF:C03-VA	, "{VGC:1}"	, XFC03VA_VGC1	, 253 	}
+}
+
+file mks937b_ccg.template
+{
+        pattern { Sys		, Dev		, CHAN  , PORT          , ADR   , Cntl		, SPNUM	}
+                { XF:C03-VA	, ":G1{CCG:1}"  , 1     , XFC03VA_VGC1  , 253   , "{VGC:1}"	, 1	}
+		{ XF:C03-VA	, ":G1{CCG:2}"  , 3     , XFC03VA_VGC1  , 253   , "{VGC:1}"	, 5	}
+
+}
+
+file mks937b_relay_ccg.template
+{
+        pattern { Sys		, Dev           , SPNUM , PORT          , ADR   , Cntl		}
+                { XF:C03-VA	, ":G1{CCG:1}"  , 1     , XFC03VA_VGC1  , 253   , "{VGC:1}"	}
+         	{ XF:C03-VA	, ":G1{CCG:2}"  , 5     , XFC03VA_VGC1  , 253   , "{VGC:1}"	}
+}
+
+
+file mks937b_pirg.template
+{
+        pattern { Sys		, Dev		, CHAN  , PORT		, ADR   , Cntl		, SPNUM1	, SPNUM2	}
+                { XF:C03-VA	, ":G1{TCG:1}"  , 5     , XFC03VA_VGC1	, 253   , "{VGC:1}"	, 9		, 10		}
+}
+
+
+file mks937b_relay_pirg.template
+{
+        pattern { Sys		, Dev           , SPNUM , PORT		, ADR   , Cntl		}
+                { XF:C03-VA	, ":G1{TCG:1}"  , 9     , XFC03VA_VGC1  , 253   , "{VGC:1}"	}
+		{ XF:C03-VA     , ":G1{TCG:1}"  , 10	, XFC03VA_VGC1  , 253   , "{VGC:1}"     }
+}
+
+

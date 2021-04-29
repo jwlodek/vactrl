@@ -1,0 +1,58 @@
+# Convert water temperature PVs for Aluminum and Copper
+record(calcout, "SR:P$(INDX)-VA{}T:Al-Calc")
+{
+	field(DESC, "SB1 Al T Convert")
+	field(INPA, "UT:SB$(INDX)-Al:1{}T:Spply_Ld-I CP")
+	field(CALC, "(A-32)*5/9")
+	field(OUT,  "SR:P$(INDX)-VA{}T:Al-I PP")
+	field(SCAN, "1 second")
+	field(FLNK, "SR:P$(INDX)-VA{}T:Cu-Calc")
+}
+
+record(ai, "SR:P$(INDX)-VA{}T:Al-I")
+{
+	field(DESC, "SB1 Al T")
+	field(PREC, "2")
+	field(INP,  "SR:P$(INDX)-VA{}T:Al-Calc")
+	field(EGU,  "C")	
+}
+
+record(calcout, "SR:P$(INDX)-VA{}T:Cu-Calc")
+{
+        field(DESC, "SB1 Cu T Convert")
+        field(INPA, "UT:SB$(INDX)-Cu:1{}T:Spply_Ld-I CP")
+        field(CALC, "(A-32)*5/9")
+        field(OUT,  "SR:P$(INDX)-VA{}T:Cu-I PP")
+	field(FLNK, "SR:P$(INDX)-VA{}T:Air-Calc")
+}
+
+record(ai, "SR:P$(INDX)-VA{}T:Cu-I")
+{
+        field(DESC, "SB1 Cu T")
+        field(PREC, "2")
+        field(INP,  "SR:P$(INDX)-VA{}T:Cu-Calc")
+        field(EGU,  "C")
+}
+
+# Average the air temperature and convert
+record(calcout, "SR:P$(INDX)-VA{}T:Air-Calc")
+{
+        field(DESC, "SB1 Air T Convert")
+        field(INPA, "CF:SB$(INDX)-AHU101{}T:Zone1-I CP")
+	field(INPB, "CF:SB$(INDX)-AHU101{}T:Zone2-I CP")
+	field(INPC, "CF:SB$(INDX)-AHU101{}T:Zone3-I CP")
+	field(INPD, "CF:SB$(INDX)-AHU101{}T:Zone4-I CP")
+        field(CALC, "(A+B+C+D-32*4)*5/9/4")
+        field(OUT,  "SR:P$(INDX)-VA{}T:Air-I PP")
+}
+
+record(ai, "SR:P$(INDX)-VA{}T:Air-I")
+{
+        field(DESC, "SB1 Air T")
+        field(PREC, "2")
+        field(INP,  "SR:P$(INDX)-VA{}T:Air-Calc")
+        field(EGU,  "C")
+}
+
+
+

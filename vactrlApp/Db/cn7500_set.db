@@ -1,0 +1,550 @@
+## Database for Omega CN7500 temperature controller
+## Substitutions:
+## Pri		-	Primary system
+## Sec		-	Secodary system
+
+# Set/Get pattern temperature set point
+record(ao, "$(P){}T-SP")
+{
+        field(DESC, "Set SV SP")
+        field(DRVH, "999.9")
+        field(DRVL, "-99.9")
+        field(LINR, "SLOPE")
+        field(ESLO, "0.1")
+        field(VAL,  "50")
+        field(EGU,  "Celsius")
+        field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step0-SP") 
+{
+	field(DESC, "Set Step0 SP")	
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "50")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step1-SP") 
+{
+	field(DESC, "Set Step1 SP")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "100")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step2-SP") 
+{
+	field(DESC, "Set Step2 SP")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(VAL,  "150")
+	field(EGU,  "Clsius")
+	field(ASG,  "VAWRITE")	
+}
+
+record(ao, "$(P){}T:Step3-SP") 
+{
+	field(DESC, "Set Step3 SP")	
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(VAL,  "150")	
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step4-SP") 
+{
+	field(DESC, "Set Step4 SP")	
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "150")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step5-SP") 
+{
+	field(DESC, "Set Step5 SP")	
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "100")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")	
+}
+
+record(ao, "$(P){}T:Step6-SP") 
+{
+	field(DESC, "Set Step6 SP")
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "70")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Step7-SP") 
+{
+	field(DESC, "Set Step7 SP")	
+	field(DRVH, "999.9")
+	field(DRVL, "-99.9")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "70")
+	field(EGU,  "Celsius")
+	field(ASG,  "VAWRITE")
+}
+
+# Set/Get pattern execution time
+# Step 0
+record(longout, "$(P){}Time:Step0HH-SP") 
+{
+	field(DESC, "Set Step0 Hour")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step0-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step0MM-SP") 
+{
+	field(DESC, "Set Step0 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "30")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step0-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step0-Calc_") 
+{
+	field(DESC, "Step0 K Calc")
+	field(INPA, "$(P){}Time:Step0HH-SP")
+	field(INPB, "$(P){}Time:Step0MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step0-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step0-SP") 
+{
+	field(DESC, "Set Step0 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "30")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Step 1
+record(longout, "$(P){}Time:Step1HH-SP") 
+{
+	field(DESC, "Set Step1 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "1")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step1-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step1MM-SP") 
+{
+	field(DESC, "Set Step1 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step1-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step1-Calc_") 
+{
+	field(DESC, "Step1 K Calc")
+	field(INPA, "$(P){}Time:Step1HH-SP")
+	field(INPB, "$(P){}Time:Step1MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step1-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step1-SP") 
+{
+	field(DESC, "Set Step1 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "60")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Step 2
+record(longout, "$(P){}Time:Step2HH-SP") 
+{
+	field(DESC, "Set Step2 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "1")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step2-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step2MM-SP") 
+{
+	field(DESC, "Set Step2 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step2-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step2-Calc_") 
+{
+	field(DESC, "Step2 K Calc")
+	field(INPA, "$(P){}Time:Step2HH-SP")
+	field(INPB, "$(P){}Time:Step2MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step2-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step2-SP") 
+{
+	field(DESC, "Set Step2 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "60")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Setp 3
+record(longout, "$(P){}Time:Step3HH-SP") 
+{
+	field(DESC, "Set Step3 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "15")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step3-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step3MM-SP") 
+{
+	field(DESC, "Set Step3 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step3-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step3-Calc_") 
+{
+	field(DESC, "Step3 K Calc")
+	field(INPA, "$(P){}Time:Step3HH-SP")
+	field(INPB, "$(P){}Time:Step3MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step3-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step3-SP") 
+{
+	field(DESC, "Set Step3 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "900")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Setp 4
+record(longout, "$(P){}Time:Step4HH-SP") 
+{
+	field(DESC, "Set Step4 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "7")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step4-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step4MM-SP") 
+{
+	field(DESC, "Set Step4 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step4-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step4-Calc_") 
+{
+	field(DESC, "Step4 K Calc")
+	field(INPA, "$(P){}Time:Step4HH-SP")
+	field(INPB, "$(P){}Time:Step4MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step4-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step4-SP") 
+{
+	field(DESC, "Set Step4 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "420")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Step 5
+record(longout, "$(P){}Time:Step5HH-SP") 
+{
+	field(DESC, "Set Step5 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "1")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step5-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step5MM-SP") 
+{
+	field(DESC, "Set Step5 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step5-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step5-Calc_") 
+{
+	field(DESC, "Step5 K Calc")
+	field(INPA, "$(P){}Time:Step5HH-SP")
+	field(INPB, "$(P){}Time:Step5MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step5-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step5-SP") 
+{
+	field(DESC, "Set Step5 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "60")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Step 6
+record(longout, "$(P){}Time:Step6HH-SP") 
+{
+	field(DESC, "Set Step6 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step6-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step6MM-SP") 
+{
+	field(DESC, "Set Step6 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "36")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step6-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step6-Calc_") 
+{
+	field(DESC, "Step6 K Calc")
+	field(INPA, "$(P){}Time:Step6HH-SP")
+	field(INPB, "$(P){}Time:Step6MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step6-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step6-SP")
+{
+	field(DESC, "Set Step6 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "36")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Step 7
+record(longout, "$(P){}Time:Step7HH-SP") 
+{
+	field(DESC, "Set Step7 Time")
+	field(DRVH, "15")
+	field(DRVL, "0")
+	field(VAL,  "1")
+	field(EGU,  "Hour")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step7-Calc_") 
+}
+
+record(longout, "$(P){}Time:Step7MM-SP") 
+{
+	field(DESC, "Set Step7 Minute")
+	field(DRVH, "60")
+	field(DRVL, "0")
+	field(VAL,  "0")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+	field(FLNK, "$(P){}Time:Step7-Calc_") 
+}
+
+record(calcout, "$(P){}Time:Step7-Calc_") 
+{
+	field(DESC, "Step7 K Calc")
+	field(INPA, "$(P){}Time:Step7HH-SP")
+	field(INPB, "$(P){}Time:Step7MM-SP")
+	field(CALC, "(A*60+B)")
+	field(OUT,  "$(P){}Time:Step7-SP PP") 
+}
+
+record(longout, "$(P){}Time:Step7-SP") 
+{
+	field(DESC, "Set Step7 Time")
+	field(DRVH, "900")
+	field(DRVL, "0")
+	field(VAL,  "60")
+	field(EGU,  "Minute")
+	field(ASG,  "VAWRITE")
+}
+
+# Set control method
+record(mbbo, "$(P){}Mode:Ctrl-Sel")
+{
+	field(DESC, "Control Method")
+	field(ASG,  "VAWRITE")
+	field(ZRST, "PID")
+	field(ONST, "ON/OFF")
+	field(TWST, "Manual Tuning")
+	field(THST, "PID Program")
+	field(VAL,  "2")
+}
+
+record(mbbo, "$(P){}Mode:HC_Ctrl-Sel")
+{
+	field(DESC, "Heat Mode")
+	field(ZRST, "Heating")
+	field(ONST, "Cooling")
+	field(TWST, "Heating/Cooling")
+	field(THST, "Cooling/Heating")
+	field(VAL,  "0")
+}
+
+# Set alarm setting
+record(ao, "$(P){}T:Alrm1Hi-SP") 
+{
+	field(DESC, "Set Alarm1 Hi")	
+	field(DRVH, "999.9")
+	field(DRVL, "0")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "170")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Alrm1Lo-SP") 
+{
+	field(DESC, "Set Alarm1 Lo")
+	field(DRVH, "999.9")
+	field(DRVL, "0")
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")	
+	field(VAL,  "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(mbbo, "$(P){}Type:Alrm1-Sel") 
+{
+	field(DESC, "Set Alamr1 Type")
+	field(ZRST, "0:Disabled")
+	field(ONST, "1:Dev Up-Lo")
+	field(TWST, "2:Dev Up")
+	field(THST, "3:Dev Lo")
+	field(FRST, "4:Rev Up-Lo")
+	field(FVST, "5:Abs Up-Lo")
+	field(SXST, "6:Abs Up")
+	field(SVST, "7:Abs Lo")
+	field(EIST, "8:Std Up-Lo")
+	field(NIST, "9:Std Up")
+	field(TEST, "10:Std Lo")
+	field(ELST, "11:Hys Up")
+	field(TVST, "12:Hys Lo")
+	field(TTST, "13:CT Alrm")
+	field(VAL,  "6")
+	field(ASG,  "VAWRITE")
+}
+
+# Set system limit
+record(ao, "$(P){}T:Hi-SP")
+{
+	field(DESC, "Upper-limit T")
+	field(DRVH, "600")
+	field(DRVL, "0")	
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(VAL,  "200")
+	field(ASG,  "VAWRITE")
+}
+
+record(ao, "$(P){}T:Lo-SP")
+{
+	field(DESC, "Low-limit T")
+	field(DRVH, "600")
+	field(DRVL, "0")	
+	field(LINR, "SLOPE")
+	field(ESLO, "0.1")
+	field(PREC, "1")
+	field(VAL,  "0")
+	field(ASG,  "VAWRITE")
+}
+
+record(mbbo, "$(P){}Cmd:SysAlrm-Sel") 
+{
+	field(DESC, "Set System Alarm")
+	field(ZRST, "None")
+      field(ONST, "Alarm1")
+	field(VAL,  "0")
+	field(ASG,  "VAWRITE")
+}

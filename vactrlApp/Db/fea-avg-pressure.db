@@ -1,0 +1,20 @@
+# Average pressure 
+record(sub, "$(Sys){}P:GV1GV2Avg-I")
+{
+	field(DESC, "P:GV1GV2")
+	field(INPA, "$(Sys){CCG:2}P-I MSS NPP")
+	field(INPB, "$(Sys){CCG:3}P-I MSS NPP")
+	field(INPC, "$(Sys){IP:2}P-I MSS NPP")
+	field(INPD, "$(Sys){IP:3}P-I MSS NPP")
+	field(INPE, "$(Sys){IP:4}P-I MSS NPP")
+	field(INAM, "subAvgPrInit")
+	field(SNAM, "subCommonAvgPrCalc")
+	field(PREC, "1")
+	field(SCAN, "1 second")
+        field(HIHI, "2.0E-7")
+        field(HIGH, "4.0E-8")
+        field(LOLO, "1.0E-12")
+        field(HHSV, "MAJOR")
+        field(HSV,  "MINOR")
+	field(LLSV, "MINOR")
+}

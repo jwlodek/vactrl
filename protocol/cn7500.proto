@@ -1,0 +1,30 @@
+# Stream Device Protocol for the OMEGA CN7600 Temperature Controller
+
+OutTerminator = "\r\n";
+InTerminator = "\r\n";
+#InTerminator = "\r\0\n";
+LockTimeout = 10000;
+ReplyTimeout = 2000;
+ReadTimeout = 1000;
+
+read_reg {
+    out ":\$103\$20001%01<mba>";
+    in  ":\$10302%4X%01<mba>";
+}
+
+write_reg {
+    out ":\$106\$2%04X%01<mba>";
+    in  ":\$106%*8c%01<mba>";
+#    @init { read_reg; }
+}
+
+read_bit {
+    out ":\$102\$20001%01<mba>";
+    in  ":\$10201%2X%01<mba>";
+}
+
+write_bit {
+    out ":\$105\$2%{0000|FF00}%01<mba>";
+    in  ":\$105\$2%*4c%01<mba>";
+#    @init { read_bit; }
+}
